@@ -323,9 +323,9 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">8</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">anprada</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">107363527</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$525,76.21</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary font-medium">
-                                5%
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$525.46</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium"> <!-- Añadida clase text-success -->
+                                <i class="fas fa-arrow-up mr-1"></i> 5.2% <!-- Añadido ícono y cambiado de "5%" a "5.2%" -->
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="px-2 py-1 bg-blue-900 bg-opacity-50 text-blue-300 rounded-full text-xs font-medium">Medio</span>
@@ -484,7 +484,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-altum-text-primary">Nueva operación ejecutada</p>
-                                    <p class="text-xs text-altum-text-secondary">Compra en EUR/USD - 04/14/2025</p>
+                                    <p class="text-xs text-altum-text-secondary">Compra en EUR/USD - 22/04/2025</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -493,7 +493,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-altum-text-primary">Depósito recibido</p>
-                                    <p class="text-xs text-altum-text-secondary">+$1,000 USD - 03/28/2025</p>
+                                    <p class="text-xs text-altum-text-secondary">+$1,250 USD - 20/04/2025</p>
                                 </div>
                             </div>
                         </div>
@@ -505,8 +505,9 @@
                     <div class="flex justify-between items-center mb-4">
                         <h4 class="text-base font-medium text-altum-text-secondary">Crecimiento del Balance</h4>
                         <div class="flex space-x-2">
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">1M</button>
-                            <button class="px-3 py-1 bg-altum-accent text-white rounded-md text-xs font-medium hover:bg-altum-accent-hover transition-colors">3M</button>
+                            <button class="px-3 py-1 bg-altum-accent text-white rounded-md text-xs font-medium hover:bg-altum-accent-hover transition-colors">1M</button> <!-- Añade bg-altum-accent y text-white -->
+                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">3M</button>
+        <!-- Los otros botones (6M y 1A) NO se tocan -->
                             <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">6M</button>
                             <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">1A</button>
                         </div>
@@ -786,20 +787,38 @@
                 id: 8,
                 username: "anprada",
                 code: "107363527",
-                balance: 500.21,
+                balance: 525.46, // Cambiado de 500.21
                 deposits: 1,
                 withdrawals: 0,
                 status: "Medio",
-                cuanto: 0.0,
+                cuanto: 5.2, // Cambiado de 0.0
                 maxLot: 0.03,
-                performance: 0.0,
-                balanceChange: "0% este mes",
-                operations: [],
+                performance: 5.2, // Cambiado de 0.0
+                balanceChange: "+5.2% este mes", // Cambiado de "0% este mes"
+                operations: [ // Operación añadida
+                    {
+            date: "21/04/2025",
+            operation: "Compra",
+            session: "London",
+            open: 1.0820,
+            close: 1.0845,
+            result: "Take Profit",
+            observation: "EUR/USD - Lote: 0.03"},
+                     {
+            date: "22/04/2025",
+            operation: "Compra",
+            session: "New York",
+            open: 1.0911,
+            close: 1.0920,
+            result: "Take Profit",
+            observation: "EUR/USD - Lote: 0.03"
+        }
+    ],
                 growthData: {
-                    '1M': [500.21],
-                    '3M': [500.21],
-                    '6M': [500.21],
-                    '1A': [500.21]
+                    '1M': [500.21, 510.00, 525.46],
+                    '3M': [450.00, 470.00, 490.00, 500.21, 525.46],
+                    '6M': [400.00, 420.00, 450.00, 470.00, 500.21, 525.46],
+                    '1A': [350.00, 380.00, 400.00, 420.00, 450.00, 500.21, 525.46]
                 }
             }
         ];
@@ -814,7 +833,7 @@
 
         // Variables globales para el gráfico
         let growthChart = null;
-        let currentTimeRange = '3M';
+        let currentTimeRange = '1M';
 
         // Función para crear/actualizar el gráfico
         function updateGrowthChart(chartData, labels) {
