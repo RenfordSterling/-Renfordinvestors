@@ -9,25 +9,38 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         'altum-dark-bg': '#131722',
                         'altum-card-bg': '#1E222D',
                         'altum-border': '#2A2E39',
-                        'altum-accent': '#377DFF',
-                        'altum-accent-hover': '#529BFF',
-                        'altum-text-primary': '#D1D4DC',
-                        'altum-text-secondary': '#848E9C',
+                        'altum-accent': '#3B82F6',
+                        'altum-accent-hover': '#60A5FA',
+                        'altum-text-primary': '#E5E7EB',
+                        'altum-text-secondary': '#9CA3AF',
                         'success': '#10B981',
                         'danger': '#EF4444',
                         'warning': '#F59E0B',
+                        'info': '#3B82F6',
+                        // Colores para modo claro
+                        'light-bg': '#F9FAFB',
+                        'light-card': '#FFFFFF',
+                        'light-border': '#E5E7EB',
+                        'light-text': '#111827',
+                        'light-text-secondary': '#6B7280'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -36,33 +49,51 @@
             background: #1E222D;
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #377DFF;
+            background-color: #3B82F6;
             border-radius: 4px;
             border: 2px solid #1E222D;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background-color: #529BFF;
+            background-color: #60A5FA;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #1E222D;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #E5E7EB;
         }
 
         .chartjs-tooltip {
-            background: rgba(30, 34, 45, 0.9) !important;
-            color: #D1D4DC !important;
+            background: rgba(30, 34, 45, 0.95) !important;
+            color: #E5E7EB !important;
             border: 1px solid #2A2E39 !important;
+            border-radius: 6px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
         }
+        .light .chartjs-tooltip {
+            background: rgba(255, 255, 255, 0.95) !important;
+            color: #111827 !important;
+            border: 1px solid #E5E7EB !important;
+        }
+
         .chartjs-tooltip-key {
-            background-color: #377DFF !important;
+            background-color: #3B82F6 !important;
         }
 
         .circular-chart .circle-bg {
             stroke: #2A2E39;
         }
+        .light .circular-chart .circle-bg {
+            stroke: #E5E7EB;
+        }
         .circular-chart .circle {
-            stroke: #377DFF;
+            stroke: #3B82F6;
             stroke-dasharray: 0, 100;
             animation: circle-fill 1.5s ease-in-out forwards;
         }
         .circular-chart .percentage {
-             fill: #377DFF;
+             fill: #3B82F6;
              font-size: 8px;
              text-anchor: middle;
              dy: 0.3em;
@@ -80,13 +111,19 @@
             --tw-ring-color: var(--altum-accent);
             box-shadow: 0 0 0 2px var(--altum-dark-bg), 0 0 0 4px var(--tw-ring-color);
         }
+        .light input:focus, .light select:focus {
+            box-shadow: 0 0 0 2px var(--light-bg), 0 0 0 4px var(--tw-ring-color);
+        }
 
         .investor-row {
             cursor: pointer;
             transition: background-color 0.2s;
         }
         .investor-row:hover {
-            background-color: #2a2e3980;
+            background-color: rgba(42, 46, 57, 0.5);
+        }
+        .light .investor-row:hover {
+            background-color: rgba(243, 244, 246, 0.5);
         }
 
         .transition-colors {
@@ -102,25 +139,171 @@
             height: 300px;
             width: 100%;
         }
+
+        /* Light mode styles */
+        .light body {
+            background-color: #F9FAFB;
+            color: #111827;
+        }
+        .light .bg-altum-card-bg {
+            background-color: #FFFFFF;
+        }
+        .light .bg-altum-dark-bg {
+            background-color: #F9FAFB;
+        }
+        .light .border-altum-border {
+            border-color: #E5E7EB;
+        }
+        .light .text-altum-text-primary {
+            color: #111827;
+        }
+        .light .text-altum-text-secondary {
+            color: #6B7280;
+        }
+        .light .bg-altum-border {
+            background-color: #E5E7EB;
+        }
+        
+        /* Logo styles - ACTUALIZADO */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, #E5E7EB 0%, #9CA3AF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+        .light .logo-text {
+            background: linear-gradient(135deg, #111827 0%, #4B5563 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Status badges */
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        .status-low {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+        .status-medium {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+        }
+        .status-high {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+
+        /* Nuevos estilos para los filtros */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .filter-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #9CA3AF;
+        }
+        .filter-input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: #1E222D;
+            border: 1px solid #2A2E39;
+            border-radius: 0.375rem;
+            color: #E5E7EB;
+            font-size: 0.875rem;
+        }
+        .filter-select {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: #1E222D;
+            border: 1px solid #2A2E39;
+            border-radius: 0.375rem;
+            color: #E5E7EB;
+            font-size: 0.875rem;
+        }
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-button.apply {
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+        }
+        .filter-button.apply:hover {
+            background-color: #2563EB;
+        }
+        .filter-button.reset {
+            background-color: #2A2E39;
+            color: #9CA3AF;
+            border: 1px solid #2A2E39;
+        }
+        .filter-button.reset:hover {
+            background-color: #374151;
+        }
     </style>
 </head>
-<body class="bg-altum-dark-bg text-altum-text-primary font-sans">
-    <!-- Barra de navegación -->
-    <nav class="bg-altum-card-bg text-altum-text-primary shadow-lg border-b border-altum-border">
+<body class="dark:bg-altum-dark-bg bg-light-bg dark:text-altum-text-primary text-light-text font-sans">
+    <!-- Botón de cambio de tema -->
+    <div class="fixed bottom-4 right-4 z-50">
+        <button id="theme-toggle" class="p-3 rounded-full bg-altum-accent text-white shadow-lg hover:bg-altum-accent-hover transition-colors flex items-center justify-center">
+            <i class="fas fa-moon dark:hidden text-sm"></i>
+            <i class="fas fa-sun hidden dark:block text-sm"></i>
+        </button>
+    </div>
+
+    <!-- Barra de navegación con logo actualizado -->
+    <nav class="dark:bg-altum-card-bg bg-light-card shadow-lg border-b dark:border-altum-border border-light-border">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <i class="fas fa-chart-line text-2xl text-altum-accent"></i>
-                <span class="text-xl font-bold text-white">ALTUM CAPITAL</span>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    AC
+                </div>
+                <span class="logo-text">ALTUM CAPITAL</span>
             </div>
             <div class="hidden md:flex items-center space-x-6">
-                <a href="#" class="text-altum-text-secondary hover:text-white font-medium transition-colors">Dashboard</a>
-                <a href="#" class="text-altum-text-secondary hover:text-white transition-colors">Inversores</a>
-                <a href="#" class="text-altum-text-secondary hover:text-white transition-colors">Reportes</a>
-                <a href="#" class="text-altum-text-secondary hover:text-white transition-colors">Configuración</a>
+                <a href="#" class="dark:text-altum-text-secondary text-light-text-secondary hover:text-altum-accent dark:hover:text-altum-accent font-medium transition-colors">Dashboard</a>
+                <a href="#" class="dark:text-altum-text-secondary text-light-text-secondary hover:text-altum-accent dark:hover:text-altum-accent transition-colors">Inversores</a>
+                <a href="#" class="dark:text-altum-text-secondary text-light-text-secondary hover:text-altum-accent dark:hover:text-altum-accent transition-colors">Reportes</a>
+                <a href="#" class="dark:text-altum-text-secondary text-light-text-secondary hover:text-altum-accent dark:hover:text-altum-accent transition-colors">Configuración</a>
                 <button class="bg-altum-accent hover:bg-altum-accent-hover text-white px-4 py-2 rounded-md font-semibold transition-colors shadow-md hover:shadow-lg text-sm">Depositar</button>
             </div>
             <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+                <button class="text-altum-accent focus:outline-none">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -130,233 +313,90 @@
     <!-- Contenido principal -->
     <main class="container mx-auto px-4 py-8">
         <!-- Banner de bienvenida -->
-        <div class="bg-altum-card-bg border border-altum-border text-white rounded-lg p-6 mb-8 shadow-md">
-            <h1 class="text-2xl md:text-3xl font-semibold mb-2 text-white">¡Bienvenido a Altum Capital!</h1>
-            <p class="mb-4 text-altum-text-secondary">Estamos comprometidos con una gestión responsable, transparente y segura de tus inversiones.</p>
-            <button class="bg-altum-accent hover:bg-altum-accent-hover text-white px-4 py-2 rounded-md font-medium transition-colors shadow-sm hover:shadow-md text-sm">
-                Conoce más <i class="fas fa-chevron-right ml-1 text-xs"></i>
-            </button>
-        </div>
+        <div class="bg-white dark:bg-altum-card-bg border border-gray-200 dark:border-altum-border rounded-lg p-6 mb-8 shadow-md">
+    <h1 class="text-2xl md:text-3xl font-semibold mb-2 text-gray-800 dark:text-white">¡Bienvenido a Altum Capital!</h1>
+    <p class="mb-4 text-gray-600 dark:text-altum-text-secondary">Estamos comprometidos con una gestión responsable, transparente y segura de tus inversiones.</p>
+    <button class="bg-altum-accent hover:bg-altum-accent-hover text-white px-4 py-2 rounded-md font-medium transition-colors shadow-sm hover:shadow-md text-sm">
+        Conoce más <i class="fas fa-chevron-right ml-1 text-xs"></i>
+    </button>
+</div>
 
-        <!-- Filtros y búsqueda -->
-        <div class="bg-altum-card-bg rounded-lg shadow-md p-4 mb-8 border border-altum-border">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <!-- Filtros y búsqueda - ACTUALIZADO según imagen -->
+        <div class="dark:bg-altum-card-bg bg-light-card rounded-lg shadow-md p-4 mb-8 dark:border-altum-border border-light-border">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <label class="block text-xs font-medium text-altum-text-secondary mb-1">Buscar inversor</label>
+                    <label class="filter-label">Buscar inversor</label>
                     <div class="relative">
-                        <input type="text" class="w-full pl-10 pr-4 py-2 bg-altum-dark-bg border border-altum-border rounded-md focus:ring-altum-accent focus:border-altum-accent transition-colors text-sm text-altum-text-primary placeholder-altum-text-secondary" placeholder="Nombre o código">
-                        <div class="absolute left-3 top-2.5 text-altum-text-secondary">
+                        <input type="text" id="search-investor" class="filter-input" placeholder="Nombre o código">
+                        <div class="absolute right-3 top-2.5 dark:text-altum-text-secondary text-light-text-secondary">
                             <i class="fas fa-search text-xs"></i>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-altum-text-secondary mb-1">Estado</label>
-                    <select class="w-full px-4 py-2 bg-altum-dark-bg border border-altum-border rounded-md focus:ring-altum-accent focus:border-altum-accent transition-colors text-sm text-altum-text-primary">
-                        <option>Todos</option>
-                        <option>Bajo</option>
-                        <option>Medio</option>
-                        <option>Alto</option>
+                    <label class="filter-label">Estado</label>
+                    <select id="filter-status" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="low">Bajo</option>
+                        <option value="medium">Medio</option>
+                        <option value="high">Alto</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-altum-text-secondary mb-1">Balance</label>
-                    <select class="w-full px-4 py-2 bg-altum-dark-bg border border-altum-border rounded-md focus:ring-altum-accent focus:border-altum-accent transition-colors text-sm text-altum-text-primary">
-                        <option>Todos</option>
-                        <option>Mayor a $10,000</option>
-                        <option>Entre $5,000-$10,000</option>
-                        <option>Menor a $5,000</option>
+                    <label class="filter-label">Balance</label>
+                    <select id="filter-balance" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="10000">Mayor a $10,000</option>
+                        <option value="5000">Entre $5,000-$10,000</option>
+                        <option value="0">Menor a $5,000</option>
                     </select>
                 </div>
-                <div class="flex items-end">
-                    <button class="w-full bg-altum-accent hover:bg-altum-accent-hover text-white px-4 py-2 rounded-md font-semibold transition-colors shadow-sm hover:shadow-md text-sm">
-                        Aplicar Filtros
-                    </button>
-                </div>
+            </div>
+            <div class="flex justify-end space-x-2">
+                <button id="reset-filters" class="filter-button reset">Limpiar</button>
+                <button id="apply-filters" class="filter-button apply">Aplicar</button>
             </div>
         </div>
 
+        <!-- [Resto del código permanece exactamente igual] -->
         <!-- Lista de inversores -->
-        <div class="bg-altum-card-bg rounded-lg shadow-lg overflow-hidden mb-8 border border-altum-border">
+        <div class="dark:bg-altum-card-bg bg-light-card rounded-lg shadow-lg overflow-hidden mb-8 dark:border-altum-border border-light-border">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-altum-border">
-                    <thead class="bg-altum-border bg-opacity-50">
+                <table class="min-w-full divide-y dark:divide-altum-border divide-light-border">
+                    <thead class="dark:bg-altum-border bg-light-border bg-opacity-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">#</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Inversor</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Código</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Balance USD</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Rendimiento</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Estado</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Acciones</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">#</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Inversor</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Código</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance USD</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Rendimiento</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Estado</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-altum-card-bg divide-y divide-altum-border" id="investors-table">
-                        <!-- Inversor 1 -->
-                        <tr class="investor-row" data-investor-id="1">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">1</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Rolopez</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">120987654</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$18,601.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 7.2%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-300 rounded-full text-xs font-medium">Bajo</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="1">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 2 -->
-                        <tr class="investor-row" data-investor-id="2">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Esfranco</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">100554350</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$14,220.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 5.1%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-300 rounded-full text-xs font-medium">Bajo</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="2">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 3 -->
-                        <tr class="investor-row" data-investor-id="3">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Mifranco</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">108765432</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$2,724.12</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 15.12%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-300 rounded-full text-xs font-medium">Alto</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="3">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 4 -->
-                        <tr class="investor-row" data-investor-id="4">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">4</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Dipatermina</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">75042015</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$800.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 7.24%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-300 rounded-full text-xs font-medium">Alto</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="4">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 5 -->
-                        <tr class="investor-row" data-investor-id="5">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Anfionez</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">101867795</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$351.64</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 6.98%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-300 rounded-full text-xs font-medium">Alto</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="5">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 6 -->
-                       < <tr class="investor-row" data-investor-id="6">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">6</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Audbar</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">195443700</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$474.00</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 0%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                  <span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-300 rounded-full text-xs font-medium">Medio</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="6">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 7 -->
-                        <tr class="investor-row" data-investor-id="7">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Arlex</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">105689741</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$237.42</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium">
-                                <i class="fas fa-arrow-up mr-1"></i> 6.9%
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-300 rounded-full text-xs font-medium">Alto</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="7">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Inversor 8 -->
-                        <tr class="investor-row" data-investor-id="8">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">8</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">Anprada</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">107363527</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-semibold">$525.46</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-success font-medium"> <!-- Añadida clase text-success -->
-                                <i class="fas fa-arrow-up mr-1"></i> 5.2% <!-- Añadido ícono y cambiado de "5%" a "5.2%" -->
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 bg-blue-900 bg-opacity-50 text-blue-300 rounded-full text-xs font-medium">Medio</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">
-                                <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="8">
-                                    <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
+                    <tbody class="dark:bg-altum-card-bg bg-light-card divide-y dark:divide-altum-border divide-light-border" id="investors-table">
+                        <!-- Inversores se cargarán dinámicamente -->
                     </tbody>
                 </table>
             </div>
             <!-- Paginación Tabla -->
-            <div class="px-6 py-4 bg-altum-card-bg border-t border-altum-border flex justify-between items-center">
-                 <div class="text-sm text-altum-text-secondary">
-                    Mostrando <span class="font-medium text-altum-text-primary">1</span> a <span class="font-medium text-altum-text-primary">8</span> de <span class="font-medium text-altum-text-primary">8</span> inversores
+            <div class="px-6 py-4 dark:bg-altum-card-bg bg-light-card border-t dark:border-altum-border border-light-border flex justify-between items-center">
+                 <div class="text-sm dark:text-altum-text-secondary text-light-text-secondary">
+                    Mostrando <span class="font-medium dark:text-altum-text-primary text-light-text" id="showing-from">1</span> a <span class="font-medium dark:text-altum-text-primary text-light-text" id="showing-to">0</span> de <span class="font-medium dark:text-altum-text-primary text-light-text" id="total-investors">0</span> inversores
                 </div>
                 <div class="flex space-x-2">
-                    <button class="px-3 py-1 bg-altum-dark-bg border border-altum-border rounded-md text-sm text-altum-text-secondary disabled:opacity-50 hover:bg-altum-border transition-colors" disabled>Anterior</button>
-                    <button class="px-3 py-1 bg-altum-dark-bg border border-altum-border rounded-md text-sm text-altum-text-secondary disabled:opacity-50 hover:bg-altum-border transition-colors" disabled>Siguiente</button>
+                    <button id="prev-page" class="px-3 py-1 dark:bg-altum-dark-bg bg-light-bg dark:border-altum-border border-light-border rounded-md text-sm dark:text-altum-text-secondary text-light-text-secondary disabled:opacity-50 hover:dark:bg-altum-border hover:bg-light-border transition-colors" disabled>Anterior</button>
+                    <button id="next-page" class="px-3 py-1 dark:bg-altum-dark-bg bg-light-bg dark:border-altum-border border-light-border rounded-md text-sm dark:text-altum-text-secondary text-light-text-secondary disabled:opacity-50 hover:dark:bg-altum-border hover:bg-light-border transition-colors" disabled>Siguiente</button>
                 </div>
             </div>
         </div>
 
         <!-- Detalle del inversor -->
-        <div id="investor-detail" class="hidden bg-altum-card-bg rounded-lg shadow-xl overflow-hidden mb-8 border border-altum-border">
+        <div id="investor-detail" class="hidden dark:bg-altum-card-bg bg-light-card rounded-lg shadow-xl overflow-hidden mb-8 dark:border-altum-border border-light-border">
             <!-- Encabezado del detalle -->
-            <div class="border-b border-altum-border px-6 py-4 flex justify-between items-center bg-altum-border bg-opacity-50">
-                <h2 class="text-xl font-semibold text-white" id="detail-investor-name">Detalle del Inversor</h2>
-                <button id="close-detail" class="text-altum-text-secondary hover:text-white transition-colors">
+            <div class="border-b dark:border-altum-border border-light-border px-6 py-4 flex justify-between items-center dark:bg-altum-border bg-light-border bg-opacity-50">
+                <h2 class="text-xl font-semibold dark:text-white text-light-text" id="detail-investor-name">Detalle del Inversor</h2>
+                <button id="close-detail" class="dark:text-altum-text-secondary text-light-text-secondary hover:text-altum-accent dark:hover:text-altum-accent transition-colors">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -366,90 +406,95 @@
                 <!-- Resumen rápido -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                     <!-- Balance -->
-                    <div class="bg-altum-dark-bg rounded-lg shadow-md p-5 border border-altum-border hover:border-altum-accent/50 transition-colors">
+                    <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-5 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
                         <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-base font-medium text-altum-text-secondary">Balance Total</h3>
+                            <h3 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary">Balance Total</h3>
                             <i class="fas fa-wallet text-altum-accent text-lg"></i>
                         </div>
-                        <p class="text-3xl font-semibold text-white mb-1" id="detail-balance">$18,601.00</p>
+                        <p class="text-3xl font-semibold dark:text-white text-light-text mb-1" id="detail-balance">$0.00</p>
                         <div class="flex items-center text-sm text-success" id="detail-balance-change">
                             <i class="fas fa-arrow-up mr-1"></i>
-                            <span>+2.3% este mes</span>
+                            <span>+0% este mes</span>
                         </div>
                     </div>
 
                     <!-- Rendimiento -->
-                    <div class="bg-altum-dark-bg rounded-lg shadow-md p-5 border border-altum-border hover:border-altum-accent/50 transition-colors">
+                    <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-5 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
                         <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-base font-medium text-altum-text-secondary">Rendimiento</h3>
+                            <h3 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary">Rendimiento</h3>
                             <i class="fas fa-chart-pie text-altum-accent text-lg"></i>
                         </div>
-                        <p class="text-3xl font-semibold text-white" id="detail-performance">7.2%</p>
+                        <p class="text-3xl font-semibold dark:text-white text-light-text" id="detail-performance">0%</p>
                         <div class="mt-3">
-                            <div class="w-full bg-altum-border rounded-full h-2">
-                                <div class="bg-altum-accent h-2 rounded-full" id="detail-performance-bar" style="width: 72%"></div>
+                            <div class="w-full dark:bg-altum-border bg-light-border rounded-full h-2">
+                                <div class="bg-altum-accent h-2 rounded-full" id="detail-performance-bar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Estado de cuenta -->
-                    <div class="bg-altum-dark-bg rounded-lg shadow-md p-5 border border-altum-border hover:border-altum-accent/50 transition-colors">
+                    <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-5 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
                         <div class="flex justify-between items-center mb-4">
-                             <h3 class="text-base font-medium text-altum-text-secondary">Estado de Cuenta</h3>
+                             <h3 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary">Estado de Cuenta</h3>
                              <i class="fas fa-check-circle text-altum-accent text-lg"></i>
                         </div>
                         <div class="flex items-center mb-3" id="detail-status">
-                             <span class="px-2 py-0.5 bg-blue-900 bg-opacity-50 text-blue-300 rounded-full text-xs font-medium">Activa</span>
-                             <span class="ml-2 text-altum-text-secondary text-xs">Riesgo: Bajo</span>
+                             <span class="status-badge status-low">Activa</span>
+                             <span class="ml-2 dark:text-altum-text-secondary text-light-text-secondary text-xs">Riesgo: Bajo</span>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <p class="text-xs text-altum-text-secondary">Depósitos</p>
-                                <p class="font-semibold text-white text-sm" id="detail-deposits">12</p>
+                                <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Depósitos</p>
+                                <p class="font-semibold dark:text-white text-light-text text-sm" id="detail-deposits">0</p>
                             </div>
                             <div>
-                                <p class="text-xs text-altum-text-secondary">Retiros</p>
-                                <p class="font-semibold text-white text-sm" id="detail-withdrawals">4</p>
+                                <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Retiros</p>
+                                <p class="font-semibold dark:text-white text-light-text text-sm" id="detail-withdrawals">0</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Sección de operaciones -->
-                <div class="bg-altum-dark-bg rounded-lg shadow-md overflow-hidden mb-8 border border-altum-border">
-                    <div class="border-b border-altum-border px-6 py-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-white">Historial de Operaciones</h3>
+                <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md overflow-hidden mb-8 dark:border-altum-border border-light-border">
+                    <div class="border-b dark:border-altum-border border-light-border px-6 py-4 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold dark:text-white text-light-text">Historial de Operaciones</h3>
                         <div class="flex space-x-2">
                             <button class="px-3 py-1 bg-altum-accent text-white rounded-md text-xs font-medium hover:bg-altum-accent-hover transition-colors">Hoy</button>
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">Semana</button>
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">Mes</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary hover:dark:bg-altum-border hover:bg-light-border transition-colors">Semana</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary hover:dark:bg-altum-border hover:bg-light-border transition-colors">Mes</button>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                         <table class="min-w-full divide-y divide-altum-border">
-                            <thead class="bg-altum-border bg-opacity-30">
+                         <table class="min-w-full divide-y dark:divide-altum-border divide-light-border">
+                            <thead class="dark:bg-altum-border bg-light-border bg-opacity-30">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Fecha</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Operación</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Sesión</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Apertura</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Cierre</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Resultado</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-altum-text-secondary uppercase tracking-wider">Observación</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Fecha</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Operación</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Sesión</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Apertura</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Cierre</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Resultado</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Observación</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-altum-dark-bg divide-y divide-altum-border" id="detail-operations">
+                            <tbody class="dark:bg-altum-dark-bg bg-light-bg divide-y dark:divide-altum-border divide-light-border" id="detail-operations">
                                 <!-- Operaciones se cargarán aquí -->
+                                <tr>
+                                    <td colspan="7" class="px-6 py-4 text-center text-sm dark:text-altum-text-secondary text-light-text-secondary">
+                                        <i class="fas fa-info-circle mr-2"></i> Selecciona un inversor para ver sus operaciones
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                     <div class="px-6 py-4 bg-altum-dark-bg border-t border-altum-border flex justify-between items-center">
-                        <div class="text-sm text-altum-text-secondary">
-                            Mostrando <span class="font-medium text-altum-text-primary">1</span> a <span class="font-medium text-altum-text-primary">2</span> de <span class="font-medium text-altum-text-primary">2</span> operaciones
+                     <div class="px-6 py-4 dark:bg-altum-dark-bg bg-light-bg border-t dark:border-altum-border border-light-border flex justify-between items-center">
+                        <div class="text-sm dark:text-altum-text-secondary text-light-text-secondary">
+                            Mostrando <span class="font-medium dark:text-altum-text-primary text-light-text">0</span> a <span class="font-medium dark:text-altum-text-primary text-light-text">0</span> de <span class="font-medium dark:text-altum-text-primary text-light-text">0</span> operaciones
                         </div>
                         <div class="flex space-x-2">
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-sm text-altum-text-secondary disabled:opacity-50 hover:bg-altum-border transition-colors" disabled>Anterior</button>
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-sm text-altum-text-secondary disabled:opacity-50 hover:bg-altum-border transition-colors" disabled>Siguiente</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-sm dark:text-altum-text-secondary text-light-text-secondary disabled:opacity-50 hover:dark:bg-altum-border hover:bg-light-border transition-colors" disabled>Anterior</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-sm dark:text-altum-text-secondary text-light-text-secondary disabled:opacity-50 hover:dark:bg-altum-border hover:bg-light-border transition-colors" disabled>Siguiente</button>
                         </div>
                     </div>
                 </div>
@@ -457,34 +502,34 @@
                  <!-- Sección de métricas -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <!-- Lote máximo -->
-                    <div class="bg-altum-dark-bg rounded-lg shadow-md p-6 border border-altum-border hover:border-altum-accent/50 transition-colors">
-                        <h4 class="text-base font-medium text-altum-text-secondary mb-4">Lote Máximo</h4>
+                    <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-6 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
+                        <h4 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary mb-4">Lote Máximo</h4>
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-3xl font-semibold text-white" id="detail-max-lot">0.5</p>
-                                <p class="text-xs text-altum-text-secondary mt-1">Lote máximo permitido</p>
+                                <p class="text-3xl font-semibold dark:text-white text-light-text" id="detail-max-lot">0.0</p>
+                                <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary mt-1">Lote máximo permitido</p>
                             </div>
                             <div class="w-20 h-20">
                                 <svg viewBox="0 0 36 36" class="circular-chart">
                                      <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"/>
                                      <path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3" stroke-linecap="round"/>
-                                     <text x="18" y="18" class="percentage">50%</text>
+                                     <text x="18" y="18" class="percentage">0%</text>
                                 </svg>
                             </div>
                         </div>
                     </div>
 
                     <!-- Actividad reciente -->
-                     <div class="bg-altum-dark-bg rounded-lg shadow-md p-6 border border-altum-border hover:border-altum-accent/50 transition-colors">
-                        <h4 class="text-base font-medium text-altum-text-secondary mb-5">Actividad Reciente</h4>
+                     <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-6 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
+                        <h4 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary mb-5">Actividad Reciente</h4>
                         <div class="space-y-5">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 h-8 w-8 rounded-full bg-altum-accent bg-opacity-20 flex items-center justify-center text-altum-accent">
                                     <i class="fas fa-exchange-alt text-sm"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium text-altum-text-primary">Nueva operación ejecutada</p>
-                                    <p class="text-xs text-altum-text-secondary">Compra en EUR/USD - 22/04/2025</p>
+                                    <p class="text-sm font-medium dark:text-altum-text-primary text-light-text">Nueva operación ejecutada</p>
+                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en EUR/USD - 22/04/2025</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -492,8 +537,8 @@
                                     <i class="fas fa-money-bill-wave text-sm"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium text-altum-text-primary">Depósito recibido</p>
-                                    <p class="text-xs text-altum-text-secondary">+$1,250 USD - 20/04/2025</p>
+                                    <p class="text-sm font-medium dark:text-altum-text-primary text-light-text">Depósito recibido</p>
+                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+$1,250 USD - 20/04/2025</p>
                                 </div>
                             </div>
                         </div>
@@ -501,15 +546,14 @@
                 </div>
 
                 <!-- Gráfico de crecimiento mejorado -->
-                <div class="bg-altum-dark-bg rounded-lg shadow-md p-6 mb-8 border border-altum-border hover:border-altum-accent/50 transition-colors">
+                <div class="dark:bg-altum-dark-bg bg-light-bg rounded-lg shadow-md p-6 mb-8 dark:border-altum-border border-light-border hover:border-altum-accent/50 transition-colors">
                     <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-base font-medium text-altum-text-secondary">Crecimiento del Balance</h4>
+                        <h4 class="text-base font-medium dark:text-altum-text-secondary text-light-text-secondary">Crecimiento del Balance</h4>
                         <div class="flex space-x-2">
-                            <button class="px-3 py-1 bg-altum-accent text-white rounded-md text-xs font-medium hover:bg-altum-accent-hover transition-colors">1M</button> <!-- Añade bg-altum-accent y text-white -->
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">3M</button>
-        <!-- Los otros botones (6M y 1A) NO se tocan -->
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">6M</button>
-                            <button class="px-3 py-1 bg-altum-card-bg border border-altum-border rounded-md text-xs font-medium text-altum-text-secondary hover:bg-altum-border transition-colors">1A</button>
+                            <button class="px-3 py-1 bg-altum-accent text-white rounded-md text-xs font-medium hover:bg-altum-accent-hover transition-colors">1M</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary hover:dark:bg-altum-border hover:bg-light-border transition-colors">3M</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary hover:dark:bg-altum-border hover:bg-light-border transition-colors">6M</button>
+                            <button class="px-3 py-1 dark:bg-altum-card-bg bg-light-card dark:border-altum-border border-light-border rounded-md text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary hover:dark:bg-altum-border hover:bg-light-border transition-colors">1A</button>
                         </div>
                     </div>
                     <div class="chart-container">
@@ -535,32 +579,32 @@
     </main>
 
     <!-- Pie de página -->
-    <footer class="bg-altum-card-bg text-altum-text-secondary border-t border-altum-border py-10">
+    <footer class="dark:bg-altum-card-bg bg-light-card dark:text-altum-text-secondary text-light-text-secondary border-t dark:border-altum-border border-light-border py-10">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                  <div>
-                    <h3 class="text-lg font-semibold mb-4 text-white">Altum Capital</h3>
+                    <h3 class="text-lg font-semibold mb-4 dark:text-white text-light-text">Altum Capital</h3>
                     <p class="text-sm">Comprometidos con una gestión responsable, transparente y segura.</p>
                 </div>
                  <div>
-                    <h3 class="text-base font-semibold mb-4 text-white">Enlaces Rápidos</h3>
+                    <h3 class="text-base font-semibold mb-4 dark:text-white text-light-text">Enlaces Rápidos</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Dashboard</a></li>
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Inversores</a></li>
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Reportes</a></li>
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Configuración</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Dashboard</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Inversores</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Reportes</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Configuración</a></li>
                     </ul>
                 </div>
                  <div>
-                    <h3 class="text-base font-semibold mb-4 text-white">Legal</h3>
+                    <h3 class="text-base font-semibold mb-4 dark:text-white text-light-text">Legal</h3>
                      <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Términos y Condiciones</a></li>
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Política de Privacidad</a></li>
-                        <li><a href="#" class="hover:text-white hover:underline transition-colors">Advertencia de Riesgo</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Términos y Condiciones</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Política de Privacidad</a></li>
+                        <li><a href="#" class="hover:text-altum-accent dark:hover:text-altum-accent hover:underline transition-colors">Advertencia de Riesgo</a></li>
                     </ul>
                 </div>
                  <div>
-                    <h3 class="text-base font-semibold mb-4 text-white">Contacto</h3>
+                    <h3 class="text-base font-semibold mb-4 dark:text-white text-light-text">Contacto</h3>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-envelope mr-2 text-xs"></i> info@altumcapital.com</li>
                         <li class="flex items-center"><i class="fas fa-phone mr-2 text-xs"></i> +57 3044514699 </li>
@@ -568,24 +612,25 @@
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-altum-border mt-8 pt-8 text-center text-xs">
+            <div class="border-t dark:border-altum-border border-light-border mt-8 pt-8 text-center text-xs">
                 <p>© 2025 Altum Capital. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-      <!-- JavaScript optimizado -->
+
+    <!-- JavaScript optimizado -->
     <script>
         // Datos de todos los inversores (actualizado al 100%)
         const investorsData = [
             // Inversor 1 (existente)
             {
                 id: 1,
-                username: "rolopez",
+                username: "Rolopez",
                 code: "120987654",
                 balance: 18601.00,
                 deposits: 12,
                 withdrawals: 4,
-                status: "Bajo",
+                status: "low",
                 cuanto: 93,
                 maxLot: 0.5,
                 performance: 7.2,
@@ -605,12 +650,12 @@
             // Inversor 2 (existente)
             {
                 id: 2,
-                username: "esfranco",
+                username: "Esfranco",
                 code: "100554350",
                 balance: 14220.00,
                 deposits: 22,
                 withdrawals: 3,
-                status: "Bajo",
+                status: "low",
                 cuanto: 47,
                 maxLot: 0.3,
                 performance: 5.1,
@@ -630,12 +675,12 @@
             // Inversor 3 (mifranco - añadido previamente)
             {
                 id: 3,
-                username: "mifranco",
+                username: "Mifranco",
                 code: "108765432",
                 balance: 2724.12,
                 deposits: 1,
                 withdrawals: 2,
-                status: "Alto",
+                status: "high",
                 cuanto: 15.12,
                 maxLot: 0.15,
                 performance: 15.12,
@@ -661,12 +706,12 @@
             // Inversor 4 (dipatermina - NUEVO)
             {
                 id: 4,
-                username: "dipatermina",
+                username: "Dipatermina",
                 code: "75042015",
                 balance: 800,
                 deposits: 1,
                 withdrawals: 0,
-                status: "Alto",
+                status: "high",
                 cuanto: 7.24,
                 maxLot: 0.03,
                 performance: 7.24,
@@ -692,12 +737,12 @@
             // Inversor 5 (anfionez - NUEVO)
             {
                 id: 5,
-                username: "anfionez",
+                username: "Anfionez",
                 code: "101867795",
                 balance: 351.64,
                 deposits: 1,
                 withdrawals: 2,
-                status: "Alto",
+                status: "high",
                 cuanto: 6.98,
                 maxLot: 0.03,
                 performance: 6.98,
@@ -720,7 +765,7 @@
                     '1A': [200, 220, 250, 280, 300, 320, 344.76, 350, 351.64]
                 }
             },
-            // Inversor 6 (Audbar - NUEVO)
+            // Inversor 6 (Audbarr - NUEVO)
             {
                 id: 6,
                 username: "Audbar",
@@ -728,38 +773,28 @@
                 balance: 474,
                 deposits: 2,
                 withdrawals: 0,
-                status: "Medium",
+                status: "medium",
                 cuanto: 0,
                 maxLot: 0.03,
                 performance: 0,
                 balanceChange: "+0% este mes",
-              //operations: [
-              // {
-              //  date: "03/04/2025",
-              //  operation: "Compra",
-              //  session: "Tokyo",
-              //  open: 1.0780,
-              //  close: 1.0800,
-              //  result: "Take Profit",
-              // observation: "EUR/USD - Lote: 0.03"
-              //  }
-                //],
-              //growthData: {
-              //  '1M': [262.14, 265, 270, 272],
-              //  '3M': [250, 255, 262.14, 265, 270, 272],
-              //  '6M': [200, 220, 250, 255, 262.14, 265, 270, 272],
-              //  '1A': [150, 180, 200, 220, 250, 255, 262.14, 265, 270, 272]
-              //}
-              },
-            // Inversor 7 (arlex - NUEVO)
+                operations: [], // Sin operaciones
+                growthData: {
+                    '1M': [474, 474, 474, 474, 474],
+                    '3M': [474, 474, 474, 474, 474],
+                    '6M': [474, 474, 474, 474, 474],
+                    '1A': [474, 474, 474, 474, 474]
+                }
+            },
+            // Inversor 7 (Armexf - NUEVO)
             {
                 id: 7,
-                username: "arlex",
+                username: "Armexf",
                 code: "105689741",
                 balance: 237.42,
                 deposits: 1,
                 withdrawals: 0,
-                status: "Alto",
+                status: "high",
                 cuanto: 6.9,
                 maxLot: 0.03,
                 performance: 6.9,
@@ -785,43 +820,70 @@
             // Inversor 8 (anprada - NUEVO)
             {
                 id: 8,
-                username: "anprada",
+                username: "Anprada",
                 code: "107363527",
-                balance: 525.46, // Cambiado de 500.21
+                balance: 525.46,
                 deposits: 1,
                 withdrawals: 0,
-                status: "Medio",
-                cuanto: 5.2, // Cambiado de 0.0
+                status: "medium",
+                cuanto: 5.2,
                 maxLot: 0.03,
-                performance: 5.2, // Cambiado de 0.0
-                balanceChange: "+5.2% este mes", // Cambiado de "0% este mes"
-                operations: [ // Operación añadida
+                performance: 5.2,
+                balanceChange: "+5.2% este mes",
+                operations: [
                     {
-            date: "21/04/2025",
-            operation: "Compra",
-            session: "London",
-            open: 1.0820,
-            close: 1.0845,
-            result: "Take Profit",
-            observation: "EUR/USD - Lote: 0.03"},
-                     {
-            date: "22/04/2025",
-            operation: "Compra",
-            session: "New York",
-            open: 1.0911,
-            close: 1.0920,
-            result: "Take Profit",
-            observation: "EUR/USD - Lote: 0.03"
-        }
-    ],
+                        date: "21/04/2025",
+                        operation: "Compra",
+                        session: "London",
+                        open: 1.0820,
+                        close: 1.0845,
+                        result: "Take Profit",
+                        observation: "EUR/USD - Lote: 0.03"
+                    },
+                    {
+                        date: "22/04/2025",
+                        operation: "Compra",
+                        session: "New York",
+                        open: 1.0911,
+                        close: 1.0920,
+                        result: "Take Profit",
+                        observation: "EUR/USD - Lote: 0.03"
+                    }
+                ],
                 growthData: {
                     '1M': [500.21, 510.00, 525.46],
                     '3M': [450.00, 470.00, 490.00, 500.21, 525.46],
                     '6M': [400.00, 420.00, 450.00, 470.00, 500.21, 525.46],
                     '1A': [350.00, 380.00, 400.00, 420.00, 450.00, 500.21, 525.46]
                 }
+            },
+            // Inversor 9 (Genérico - NUEVO)
+            {
+                id: 9,
+                username: "Alejmo",
+                code: "764977124",
+                balance: 229.23,
+                deposits: 1,
+                withdrawals: 0,
+                status: "medium",
+                cuanto: 0,
+                maxLot: 0.1,
+                performance: 0,
+                balanceChange: "+0% este mes",
+                operations: [], // Sin operaciones
+                growthData: {
+                    '1M': [229.23, 229.23, 229.23, 229.23, 229.23],
+                    '3M': [229.23, 229.23, 229.23, 229.23, 229.23],
+                    '6M': [229.23, 229.23, 229.23, 229.23, 229.23],
+                    '1A': [229.23, 229.23, 229.23, 229.23, 229.23]
+                }
             }
         ];
+
+        // Variables para paginación
+        let currentPage = 1;
+        const investorsPerPage = 5;
+        let filteredInvestors = [...investorsData];
 
         // Función para formatear números como USD
         function formatUSD(amount) {
@@ -829,6 +891,113 @@
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
+        }
+
+        // Función para obtener el texto de estado
+        function getStatusText(status) {
+            const statusMap = {
+                'low': 'Bajo',
+                'medium': 'Medio',
+                'high': 'Alto'
+            };
+            return statusMap[status] || status;
+        }
+
+        // Función para renderizar la tabla de inversores
+        function renderInvestorsTable() {
+            const tableBody = document.getElementById('investors-table');
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * investorsPerPage;
+            const endIndex = Math.min(startIndex + investorsPerPage, filteredInvestors.length);
+            
+            for (let i = startIndex; i < endIndex; i++) {
+                const investor = filteredInvestors[i];
+                const row = document.createElement('tr');
+                row.className = 'investor-row';
+                row.setAttribute('data-investor-id', investor.id);
+                
+                const performanceClass = investor.performance > 0 ? 'text-success' : investor.performance < 0 ? 'text-danger' : 'dark:text-altum-text-secondary text-light-text-secondary';
+                const performanceIcon = investor.performance > 0 ? 'fa-arrow-up' : investor.performance < 0 ? 'fa-arrow-down' : 'fa-minus';
+                
+                const statusClass = `status-${investor.status}`;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-altum-text-primary text-light-text">${i + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-white text-light-text">${investor.username}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${investor.code}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.balance)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${performanceClass}">
+                        <i class="fas ${performanceIcon} mr-1"></i> ${investor.performance}%
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <span class="status-badge ${statusClass}">${getStatusText(investor.status)}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">
+                        <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="${investor.id}">
+                            <i class="fas fa-eye mr-1 text-xs"></i> Ver
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            }
+            
+            // Actualizar información de paginación
+            document.getElementById('showing-from').textContent = filteredInvestors.length > 0 ? startIndex + 1 : 0;
+            document.getElementById('showing-to').textContent = endIndex;
+            document.getElementById('total-investors').textContent = filteredInvestors.length;
+            
+            // Habilitar/deshabilitar botones de paginación
+            document.getElementById('prev-page').disabled = currentPage === 1;
+            document.getElementById('next-page').disabled = endIndex >= filteredInvestors.length;
+            
+            // Agregar event listeners a las filas y botones
+            document.querySelectorAll('.investor-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    const investorId = parseInt(row.getAttribute('data-investor-id'));
+                    showInvestorDetail(investorId);
+                });
+            });
+            
+            document.querySelectorAll('.view-detail').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const investorId = parseInt(button.getAttribute('data-id'));
+                    showInvestorDetail(investorId);
+                });
+            });
+        }
+
+        // Función para filtrar inversores
+        function filterInvestors() {
+            const searchTerm = document.getElementById('search-investor').value.toLowerCase();
+            const statusFilter = document.getElementById('filter-status').value;
+            const balanceFilter = document.getElementById('filter-balance').value;
+            
+            filteredInvestors = investorsData.filter(investor => {
+                // Filtrar por búsqueda
+                const matchesSearch = investor.username.toLowerCase().includes(searchTerm) || 
+                                     investor.code.toLowerCase().includes(searchTerm);
+                
+                // Filtrar por estado
+                const matchesStatus = statusFilter === 'all' || investor.status === statusFilter;
+                
+                // Filtrar por balance
+                let matchesBalance = true;
+                if (balanceFilter === '10000') {
+                    matchesBalance = investor.balance > 10000;
+                } else if (balanceFilter === '5000') {
+                    matchesBalance = investor.balance >= 5000 && investor.balance <= 10000;
+                } else if (balanceFilter === '0') {
+                    matchesBalance = investor.balance < 5000;
+                }
+                
+                return matchesSearch && matchesStatus && matchesBalance;
+            });
+            
+            // Resetear a la primera página
+            currentPage = 1;
+            renderInvestorsTable();
         }
 
         // Variables globales para el gráfico
@@ -845,8 +1014,8 @@
             }
             
             // Configuración del gráfico optimizada
-            const gridColor = 'rgba(42, 46, 57, 0.7)';
-            const labelColor = '#848E9C';
+            const gridColor = document.documentElement.classList.contains('dark') ? 'rgba(42, 46, 57, 0.7)' : 'rgba(229, 231, 235, 0.7)';
+            const labelColor = document.documentElement.classList.contains('dark') ? '#9CA3AF' : '#6B7280';
             
             growthChart = new Chart(ctx, {
                 type: 'line',
@@ -855,14 +1024,14 @@
                     datasets: [{
                         label: 'Balance USD',
                         data: chartData,
-                        borderColor: '#377DFF',
-                        backgroundColor: 'rgba(55, 125, 255, 0.1)',
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
                         tension: 0.4,
                         fill: true,
-                        pointBackgroundColor: '#377DFF',
+                        pointBackgroundColor: '#3B82F6',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#377DFF',
+                        pointHoverBorderColor: '#3B82F6',
                         pointRadius: 3,
                         pointHoverRadius: 5,
                         borderWidth: 2
@@ -874,9 +1043,9 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: 'rgba(30, 34, 45, 0.9)',
-                            titleColor: '#D1D4DC',
-                            bodyColor: '#D1D4DC',
+                            backgroundColor: document.documentElement.classList.contains('dark') ? 'rgba(30, 34, 45, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: document.documentElement.classList.contains('dark') ? '#E5E7EB' : '#111827',
+                            bodyColor: document.documentElement.classList.contains('dark') ? '#E5E7EB' : '#111827',
                             borderColor: gridColor,
                             borderWidth: 1,
                             padding: 10,
@@ -936,40 +1105,51 @@
             document.getElementById('detail-performance-bar').style.width = `${investor.performance}%`;
             
             const statusContainer = document.getElementById('detail-status');
-            const statusText = investor.status === "Bajo" ? "Activo" : investor.status;
-            const statusColor = investor.status === "Bajo" ? "blue" : "yellow";
+            const statusText = investor.status === "low" ? "Activo" : getStatusText(investor.status);
+            const statusClass = `status-${investor.status}`;
             statusContainer.innerHTML = `
-                 <span class="px-2 py-0.5 bg-${statusColor}-900 bg-opacity-50 text-${statusColor}-300 rounded-full text-xs font-medium">${statusText}</span>
-                 <span class="ml-2 text-altum-text-secondary text-xs">Riesgo: ${investor.status}</span>
+                 <span class="status-badge ${statusClass}">${statusText}</span>
+                 <span class="ml-2 dark:text-altum-text-secondary text-light-text-secondary text-xs">Riesgo: ${getStatusText(investor.status)}</span>
             `;
             
             document.getElementById('detail-deposits').textContent = investor.deposits;
             document.getElementById('detail-withdrawals').textContent = investor.withdrawals;
             document.getElementById('detail-max-lot').textContent = investor.maxLot;
 
-            // Renderizar operaciones
+            // Renderizar operaciones o mensaje si no hay
             const operationsTable = document.getElementById('detail-operations');
             operationsTable.innerHTML = '';
-            investor.operations.forEach(op => {
-                const row = document.createElement('tr');
-                const resultClass = op.result.includes('Profit') ? 'text-success' : 'text-danger';
-                const operationClass = op.operation === 'Compra'
-                    ? 'bg-green-900 bg-opacity-40 text-green-300'
-                    : 'bg-red-900 bg-opacity-40 text-red-300';
+            
+            if (investor.operations && investor.operations.length > 0) {
+                investor.operations.forEach(op => {
+                    const row = document.createElement('tr');
+                    const resultClass = op.result.includes('Profit') ? 'text-success' : 'text-danger';
+                    const operationClass = op.operation === 'Compra'
+                        ? 'bg-green-900 bg-opacity-40 text-green-300'
+                        : 'bg-red-900 bg-opacity-40 text-red-300';
 
-                row.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-altum-text-primary">${op.date}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm">
-                        <span class="px-2 py-1 ${operationClass} rounded-full text-xs font-medium">${op.operation}</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">${op.session}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">${op.open}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-altum-text-secondary">${op.close}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${resultClass}">${op.result}</td>
-                    <td class="px-6 py-4 text-sm text-altum-text-secondary max-w-xs truncate" title="${op.observation}">${op.observation}</td>
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-altum-text-primary text-light-text">${op.date}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <span class="px-2 py-1 ${operationClass} rounded-full text-xs font-medium">${op.operation}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${op.session}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${op.open}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${op.close}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${resultClass}">${op.result}</td>
+                        <td class="px-6 py-4 text-sm dark:text-altum-text-secondary text-light-text-secondary max-w-xs truncate" title="${op.observation}">${op.observation}</td>
+                    `;
+                    operationsTable.appendChild(row);
+                });
+            } else {
+                operationsTable.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-sm dark:text-altum-text-secondary text-light-text-secondary">
+                            <i class="fas fa-info-circle mr-2"></i> Este inversor no tiene operaciones registradas
+                        </td>
+                    </tr>
                 `;
-                operationsTable.appendChild(row);
-            });
+            }
 
             // Actualizar el gráfico de crecimiento con el rango de tiempo actual
             updateChartForTimeRange(currentTimeRange, investor);
@@ -1022,23 +1202,68 @@
             updateGrowthChart(data, labels);
         }
 
+        // Función para cambiar entre modo claro y oscuro
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            // Actualizar gráfico si existe
+            if (growthChart) {
+                const investorId = parseInt(document.querySelector('#investors-table tr[data-investor-id]')?.getAttribute('data-investor-id'));
+                if (investorId) {
+                    const investor = investorsData.find(i => i.id === investorId);
+                    if (investor) {
+                        updateChartForTimeRange(currentTimeRange, investor);
+                    }
+                }
+            }
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
-            // Manejar clics en filas de inversores
-            document.querySelectorAll('.investor-row').forEach(row => {
-                row.addEventListener('click', () => {
-                    const investorId = parseInt(row.getAttribute('data-investor-id'));
-                    showInvestorDetail(investorId);
-                });
+            // Verificar preferencia de tema guardada
+            if (localStorage.getItem('theme') === 'light' || 
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+            }
+
+            // Renderizar tabla inicial
+            renderInvestorsTable();
+
+            // Manejar búsqueda y filtros
+            document.getElementById('search-investor').addEventListener('input', filterInvestors);
+            document.getElementById('filter-status').addEventListener('change', filterInvestors);
+            document.getElementById('filter-balance').addEventListener('change', filterInvestors);
+            document.getElementById('apply-filters').addEventListener('click', filterInvestors);
+            document.getElementById('reset-filters').addEventListener('click', () => {
+                document.getElementById('search-investor').value = '';
+                document.getElementById('filter-status').value = 'all';
+                document.getElementById('filter-balance').value = 'all';
+                filterInvestors();
             });
 
-            // Manejar clics en botones de ver detalle
-            document.querySelectorAll('.view-detail').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const investorId = parseInt(button.getAttribute('data-id'));
-                    showInvestorDetail(investorId);
-                });
+            // Manejar paginación
+            document.getElementById('prev-page').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderInvestorsTable();
+                }
+            });
+            
+            document.getElementById('next-page').addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredInvestors.length / investorsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderInvestorsTable();
+                }
             });
 
             // Manejar clic en cerrar detalle
@@ -1052,11 +1277,11 @@
                     // Actualizar estilos de los botones
                     document.querySelectorAll('#investor-detail .chart-container + div button').forEach(btn => {
                         btn.classList.remove('bg-altum-accent', 'text-white');
-                        btn.classList.add('bg-altum-card-bg', 'text-altum-text-secondary', 'border', 'border-altum-border');
+                        btn.classList.add('dark:bg-altum-card-bg', 'bg-light-card', 'dark:text-altum-text-secondary', 'text-light-text-secondary', 'dark:border-altum-border', 'border-light-border');
                     });
                     
                     this.classList.add('bg-altum-accent', 'text-white');
-                    this.classList.remove('bg-altum-card-bg', 'text-altum-text-secondary', 'border', 'border-altum-border');
+                    this.classList.remove('dark:bg-altum-card-bg', 'bg-light-card', 'dark:text-altum-text-secondary', 'text-light-text-secondary', 'dark:border-altum-border', 'border-light-border');
                     
                     // Actualizar el gráfico si hay un inversor mostrado
                     const detailPanel = document.getElementById('investor-detail');
@@ -1069,6 +1294,9 @@
                     }
                 });
             });
+
+            // Manejar cambio de tema
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         });
     </script>
 </body>
