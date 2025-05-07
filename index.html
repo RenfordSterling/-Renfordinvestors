@@ -403,7 +403,7 @@
                         </div>
                         <div>
                             <p class="text-sm dark:text-altum-text-primary text-light-text">Nueva operación ejecutada</p>
-                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en EUR/USD - 22/04/2025</p>
+                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en XAUUSD - 06/05/2025</p>
                         </div>
                     </div>
                     
@@ -413,8 +413,8 @@
                             <i class="fas fa-money-bill-wave text-xs"></i>
                         </div>
                         <div>
-                            <p class="text-sm dark:text-altum-text-primary text-light-text">Depósito recibido</p>
-                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+$1,250 USD - 20/04/2025</p>
+                            <p class="text-sm dark:text-altum-text-primary text-light-text">Retiro Realizado</p>
+                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+ $735 USD - 04/05/2025</p>
                         </div>
                     </div>
                 </div>
@@ -426,38 +426,38 @@
                 
                 <div class="space-y-3">
                     <!-- Noticia 1 -->
-                    <a href="https://www.cnbc.com/2025/05/01/russia-war-us-and-ukraine-sign-landmark-minerals-deal.html" target="_blank" class="block group hover:dark:bg-altum-dark-bg/50 hover:bg-light-bg/50 p-2 rounded transition-colors">
+                    <a href="https://www.forexfactory.com/news/1340695-the-fed-meets-with-uncertainty-permeating-the-air" target="_blank" class="block group hover:dark:bg-altum-dark-bg/50 hover:bg-light-bg/50 p-2 rounded transition-colors">
                         <div class="flex items-start">
                             <div class="flex-shrink-0 mt-0.5 text-altum-accent">
                                 <i class="fas fa-chart-line text-sm"></i>
                             </div>
                             <div class="ml-2">
                                 <p class="text-sm font-medium dark:text-white text-light-text group-hover:text-altum-accent">
-                                    Acuerdo Ucrania-EE.UU. en minerales clave
+La Fed se reúne con incertidumbre que impregna el aire. Esto es lo que debe esperar
                                 </p>
                                 <div class="flex items-center mt-1">
-                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">CNBC</span>
+                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">FRXO</span>
                                     <span class="mx-2 dark:text-altum-border text-light-border">•</span>
-                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Hace 1h</span>
+                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Hace 3h</span>
                                 </div>
                             </div>
                         </div>
                     </a>
                     
                     <!-- Noticia 2 -->
-                    <a href="https://www.cnbc.com/2025/05/01/weekly-jobless-claims-surge-to-241000.html" target="_blank" class="block group hover:dark:bg-altum-dark-bg/50 hover:bg-light-bg/50 p-2 rounded transition-colors">
+                    <a href="https://www.bbc.com/mundo/articles/c62z2k1qw91o" target="_blank" class="block group hover:dark:bg-altum-dark-bg/50 hover:bg-light-bg/50 p-2 rounded transition-colors">
                         <div class="flex items-start">
                             <div class="flex-shrink-0 mt-0.5 text-red-400">
                                 <i class="fas fa-exclamation-triangle text-sm"></i>
                             </div>
                             <div class="ml-2">
                                 <p class="text-sm font-medium dark:text-white text-light-text group-hover:text-altum-accent">
-                                    Desempleo en EE.UU. sube al 4.2%
+India lanza un ataque con misiles contra Pakistán y escala las tensiones entre las dos potencias nucleares
                                 </p>
                                 <div class="flex items-center mt-1">
                                     <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">BBC</span>
                                     <span class="mx-2 dark:text-altum-border text-light-border">•</span>
-                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Hace 3h</span>
+                                    <span class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Hace 1h</span>
                                 </div>
                             </div>
                         </div>
@@ -610,7 +610,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium dark:text-altum-text-primary text-light-text">Nueva operación ejecutada</p>
-                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en EUR/USD - 22/04/2025</p>
+                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en XAUUSD - 06/05/2025</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -619,7 +619,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium dark:text-altum-text-primary text-light-text">Depósito recibido</p>
-                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+$1,250 USD - 20/04/2025</p>
+                                    <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+$1,250 USD - 06/05/2025</p>
                                 </div>
                             </div>
                         </div>
@@ -859,7 +859,17 @@
                 maxLot: 0.03,
                 performance: 0.06,
                 balanceChange: "+0.06% este mes",
-                operations: [], // Sin operaciones
+                operations: [
+                    {
+                        date: "30/04/2025",
+                        operation: "Venta",
+                        session: "New York",
+                        open: 1.13534,
+                        close:1.13366,
+                        result: "Take Profit (5.17)",
+                        observation: "EUR/USD - Lote: 0.03"
+                    }
+                ],
                 growthData: {
                     '1M': [474, 474, 474, 474, 474],
                     '3M': [474, 474, 474, 474, 474],
@@ -951,7 +961,17 @@
                 maxLot: 0.1,
                 performance: 0.09,
                 balanceChange: "+0.09% este mes",
-                operations: [], // Sin operaciones
+                operations: [
+                    {
+                        date: "30/04/2025",
+                        operation: "Venta",
+                        session: "New York",
+                        open: 1.13534,
+                        close:1.13366,
+                        result: "Take Profit (5.17)",
+                        observation: "EUR/USD - Lote: 0.03"
+                    }
+                ],
                 growthData: {
                     '1M': [229.23, 229.23, 229.23, 229.23, 229.23],
                     '3M': [229.23, 229.23, 229.23, 229.23, 229.23],
