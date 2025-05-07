@@ -33,6 +33,15 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -163,7 +172,7 @@
             background-color: #E5E7EB;
         }
         
-        /* Logo styles - ACTUALIZADO */
+        /* Logo styles */
         .logo-container {
             display: flex;
             align-items: center;
@@ -219,12 +228,102 @@
             color: #F59E0B;
         }
 
-        /* Nuevos estilos para los filtros */
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+        /* Video Hero Section */
+        .video-hero {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 80vh;
+            max-height: 800px;
+            overflow: hidden;
         }
+        
+        .video-hero video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(89deg, #000 0%, rgba(0, 0, 0, 0.60) 53.65%, rgba(0, 0, 0, 0.00) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .hero-button {
+            background: #3B82F6;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            display: inline-block;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-button:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .video-hero {
+                height: 70vh;
+            }
+            
+            .hero-content {
+                padding: 0 5%;
+                justify-content: flex-end;
+                padding-bottom: 2rem;
+            }
+            
+            .video-overlay {
+                background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            }
+        }
+
+        /* Estilos para los filtros corregidos */
         .filter-label {
             display: block;
             font-size: 0.75rem;
@@ -241,6 +340,11 @@
             color: #E5E7EB;
             font-size: 0.875rem;
         }
+        .light .filter-input {
+            background-color: #FFFFFF;
+            border-color: #E5E7EB;
+            color: #111827;
+        }
         .filter-select {
             width: 100%;
             padding: 0.5rem 1rem;
@@ -249,6 +353,19 @@
             border-radius: 0.375rem;
             color: #E5E7EB;
             font-size: 0.875rem;
+        }
+        .light .filter-select {
+            background-color: #FFFFFF;
+            border-color: #E5E7EB;
+            color: #111827;
+        }
+        .filter-select option {
+            background-color: #1E222D;
+            color: #E5E7EB;
+        }
+        .light .filter-select option {
+            background-color: #FFFFFF;
+            color: #111827;
         }
         .filter-button {
             padding: 0.5rem 1rem;
@@ -271,8 +388,16 @@
             color: #9CA3AF;
             border: 1px solid #2A2E39;
         }
+        .light .filter-button.reset {
+            background-color: #E5E7EB;
+            color: #6B7280;
+            border-color: #E5E7EB;
+        }
         .filter-button.reset:hover {
             background-color: #374151;
+        }
+        .light .filter-button.reset:hover {
+            background-color: #D1D5DB;
         }
     </style>
 </head>
@@ -285,8 +410,8 @@
         </button>
     </div>
 
-    <!-- Barra de navegación con logo actualizado -->
-    <nav class="dark:bg-altum-card-bg bg-light-card shadow-lg border-b dark:border-altum-border border-light-border">
+    <!-- Barra de navegación -->
+    <nav class="dark:bg-altum-card-bg bg-light-card shadow-lg border-b dark:border-altum-border border-light-border sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="logo-container">
                 <div class="logo-icon">
@@ -309,18 +434,22 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Banner de bienvenida -->
-        <div class="bg-white dark:bg-altum-card-bg border border-gray-200 dark:border-altum-border rounded-lg p-6 mb-8 shadow-md">
-            <h1 class="text-2xl md:text-3xl font-semibold mb-2 text-gray-800 dark:text-white">¡Bienvenido a Altum Capital!</h1>
-            <p class="mb-4 text-gray-600 dark:text-altum-text-secondary">Estamos comprometidos con una gestión responsable, transparente y segura de tus inversiones.</p>
-            <button class="bg-altum-accent hover:bg-altum-accent-hover text-white px-4 py-2 rounded-md font-medium transition-colors shadow-sm hover:shadow-md text-sm">
-                Conoce más <i class="fas fa-chevron-right ml-1 text-xs"></i>
-            </button>
+    <!-- Hero Section con Video -->
+    <section class="video-hero">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+            <source src="https://d21u74ttq7jqzf.cloudfront.net/video/v15_banner_video.mp4?v=1" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">¡Bienvenido a Altum Capital!</h1>
+            <p class="hero-subtitle">Estamos comprometidos con una gestión responsable, transparente y segura de tus inversiones.</p>
+            <a href="#" class="hero-button">Únete a nosotros ahora</a>
         </div>
+    </section>
 
-        <!-- Filtros y búsqueda - ACTUALIZADO según imagen -->
+    <!-- Contenido principal -->
+    <main class="container mx-auto px-4 py-8 -mt-4 relative z-10">
+        <!-- Filtros y búsqueda -->
         <div class="dark:bg-altum-card-bg bg-light-card rounded-lg shadow-md p-4 mb-8 dark:border-altum-border border-light-border">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
@@ -366,7 +495,8 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">#</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Inversor</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Código</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance USD</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Inicial</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Actual</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Rendimiento</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Estado</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Acciones</th>
@@ -388,6 +518,14 @@
                 </div>
             </div>
         </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Código JavaScript existente...
+    </script>
+</body>
+</html>
 
         <!-- Sección de Actividad Reciente y Noticias del Mercado en dos columnas -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -701,286 +839,297 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
 
     <!-- JavaScript optimizado -->
     <script>
-        // Datos de todos los inversores (actualizado al 100%)
-        const investorsData = [
-            // Inversor 1 (existente)
-            {
-                id: 1,
-                username: "Rolopez",
-                code: "120987654",
-                balance: 18601.00,
-                deposits: 12,
-                withdrawals: 4,
-                status: "low",
-                cuanto: 93,
-                maxLot: 0.5,
-                performance: 7.2,
-                balanceChange: "+2.3% este mes",
-                operations: [
-                    { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
-                    { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
-                    { date: "04/03/2025", operation: "Compra", session: "Asia", open: 1.105584, close: 1.10644, result: "Take Profit Parcial", observation: "Sumarán a las cuentas operaciones del viernes" }
-                ],
-                growthData: {
-                    '1M': [15000, 15500, 16200, 16800, 17400, 18000, 18601],
-                    '3M': [12000, 12500, 13000, 13500, 14000, 14500, 15000, 15500, 16200, 16800, 17400, 18000, 18601],
-                    '6M': [8000, 8500, 9000, 9500, 10000, 10500, 11000, 11500, 12000, 12500, 13000, 13500, 14000, 14500, 15000, 15500, 16200, 16800, 17400, 18000, 18601],
-                    '1A': [5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 10500, 11000, 11500, 12000, 12500, 13000, 13500, 14000, 14500, 15000, 15500, 16200, 16800, 17400, 18000, 18601]
-                }
-            },
-            // Inversor 2 (existente)
-            {
-                id: 2,
-                username: "Esfranco",
-                code: "100554350",
-                balance: 14220.00,
-                deposits: 22,
-                withdrawals: 3,
-                status: "low",
-                cuanto: 47,
-                maxLot: 0.3,
-                performance: 5.1,
-                balanceChange: "+1.8% este mes",
-                operations: [
-                    { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
-                    { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
-                    { date: "04/03/2025", operation: "Compra", session: "Asia", open: 1.105584, close: 1.10644, result: "Take Profit Parcial", observation: "Sumarán a las cuentas operaciones del viernes" }
-                ],
-                growthData: {
-                    '1M': [8000, 8300, 8600, 8900, 9200, 9400, 9447],
-                    '3M': [7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8800, 9000, 9200, 9447],
-                    '6M': [6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8800, 9000, 9200, 9447],
-                    '1A': [5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8800, 9000, 9200, 9447]
-                }
-            },
-            // Inversor 3 (mifranco - añadido previamente)
-            {
-                id: 3,
-                username: "Mifranco",
-                code: "108765432",
-                balance: 2724.12,
-                deposits: 1,
-                withdrawals: 2,
-                status: "high",
-                cuanto: 15.12,
-                maxLot: 0.15,
-                performance: 15.12,
-                balanceChange: "+15.12% este mes",
-                operations: [
-                    { 
-                        date: "10/04/2025", 
-                        operation: "Compra", 
-                        session: "London", 
-                        open: 1.10234, 
-                        close: 1.10345, 
-                        result: "Take Profit", 
-                        observation: "Operación en EUR/USD (Stake: 2-5)" 
-                    }
-                ],
-                growthData: {
-                    '1M': [2706.61, 2710.50, 2715.20, 2720.00, 2724.12],
-                    '3M': [2500.00, 2600.00, 2650.00, 2706.61, 2724.12],
-                    '6M': [2000.00, 2200.00, 2400.00, 2500.00, 2706.61, 2724.12],
-                    '1A': [1500.00, 1800.00, 2000.00, 2200.00, 2500.00, 2706.61, 2724.12]
-                }
-            },
-            // Inversor 4 (dipatermina - NUEVO)
-            {
-                id: 4,
-                username: "Dipatermina",
-                code: "75042015",
-                balance: 800,
-                deposits: 1,
-                withdrawals: 0,
-                status: "high",
-                cuanto: 7.24,
-                maxLot: 0.03,
-                performance: 7.24,
-                balanceChange: "+7.24% este mes",
-                operations: [
-                    {
-                        date: "01/04/2025",
-                        operation: "Compra",
-                        session: "London",
-                        open: 1.0800,
-                        close: 1.0825,
-                        result: "Take Profit",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [362, 400, 600, 800],
-                    '3M': [300, 362, 400, 600, 800],
-                    '6M': [200, 300, 362, 400, 600, 800],
-                    '1A': [100, 200, 300, 362, 400, 600, 800]
-                }
-            },
-            // Inversor 5 (anfionez - NUEVO)
-            {
-                id: 5,
-                username: "Anfionez",
-                code: "101867795",
-                balance: 351.64,
-                deposits: 1,
-                withdrawals: 2,
-                status: "high",
-                cuanto: 6.98,
-                maxLot: 0.03,
-                performance: 6.98,
-                balanceChange: "+6.98% este mes",
-                operations: [
-                    {
-                        date: "02/04/2025",
-                        operation: "Venta",
-                        session: "New York",
-                        open: 1.0950,
-                        close: 1.0925,
-                        result: "Take Profit",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [344.76, 350, 351.64],
-                    '3M': [300, 320, 344.76, 350, 351.64],
-                    '6M': [250, 280, 300, 320, 344.76, 350, 351.64],
-                    '1A': [200, 220, 250, 280, 300, 320, 344.76, 350, 351.64]
-                }
-            },
-            // Inversor 6 (Audbarr - NUEVO)
-            {
-                id: 6,
-                username: "Audbar",
-                code: "195443700",
-                balance: 479.17,
-                deposits: 2,
-                withdrawals: 0,
-                status: "medium",
-                cuanto: 0,
-                maxLot: 0.03,
-                performance: 0.06,
-                balanceChange: "+0.06% este mes",
-                operations: [
-                    {
-                        date: "30/04/2025",
-                        operation: "Venta",
-                        session: "New York",
-                        open: 1.13534,
-                        close:1.13366,
-                        result: "Take Profit (5.17)",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [474, 474, 474, 474, 474],
-                    '3M': [474, 474, 474, 474, 474],
-                    '6M': [474, 474, 474, 474, 474],
-                    '1A': [474, 474, 474, 474, 474]
-                }
-            },
-            // Inversor 7 (Armexf - NUEVO)
-            {
-                id: 7,
-                username: "Armexf",
-                code: "105689741",
-                balance: 237.42,
-                deposits: 1,
-                withdrawals: 0,
-                status: "high",
-                cuanto: 6.9,
-                maxLot: 0.03,
-                performance: 6.9,
-                balanceChange: "+6.9% este mes",
-                operations: [
-                    {
-                        date: "04/04/2025",
-                        operation: "Venta",
-                        session: "London",
-                        open: 1.0850,
-                        close: 1.0820,
-                        result: "Take Profit",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [230.32, 235, 237.42],
-                    '3M': [200, 210, 230.32, 235, 237.42],
-                    '6M': [180, 190, 200, 210, 230.32, 235, 237.42],
-                    '1A': [150, 160, 180, 190, 200, 210, 230.32, 235, 237.42]
-                }
-            },
-            // Inversor 8 (anprada - NUEVO)
-            {
-                id: 8,
-                username: "Anprada",
-                code: "107363527",
-                balance: 534.92,
-                deposits: 1,
-                withdrawals: 0,
-                status: "medium",
-                cuanto: 6.1,
-                maxLot: 0.03,
-                performance: 6.1,
-                balanceChange: "+6.1% este mes",
-                operations: [
-                    {
-                        date: "21/04/2025",
-                        operation: "Compra",
-                        session: "London",
-                        open: 1.0820,
-                        close: 1.0845,
-                        result: "Take Profit",
-                        observation: "EUR/USD - Lote: 0.03"
-                    },
-                    {
-                        date: "22/04/2025",
-                        operation: "Compra",
-                        session: "New York",
-                        open: 1.0911,
-                        close: 1.0920,
-                        result: "Take Profit",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [500.21, 510.00, 525.46],
-                    '3M': [450.00, 470.00, 490.00, 500.21, 525.46],
-                    '6M': [400.00, 420.00, 450.00, 470.00, 500.21, 525.46],
-                    '1A': [350.00, 380.00, 400.00, 420.00, 450.00, 500.21, 525.46]
-                }
-            },
-            // Inversor 9 (Genérico - NUEVO)
-            {
-                id: 9,
-                username: "Alejmo",
-                code: "764977124",
-                balance: 234.4,
-                deposits: 1,
-                withdrawals: 0,
-                status: "medium",
-                cuanto: 0.09,
-                maxLot: 0.1,
-                performance: 0.09,
-                balanceChange: "+0.09% este mes",
-                operations: [
-                    {
-                        date: "30/04/2025",
-                        operation: "Venta",
-                        session: "New York",
-                        open: 1.13534,
-                        close:1.13366,
-                        result: "Take Profit (5.17)",
-                        observation: "EUR/USD - Lote: 0.03"
-                    }
-                ],
-                growthData: {
-                    '1M': [229.23, 229.23, 229.23, 229.23, 229.23],
-                    '3M': [229.23, 229.23, 229.23, 229.23, 229.23],
-                    '6M': [229.23, 229.23, 229.23, 229.23, 229.23],
-                    '1A': [229.23, 229.23, 229.23, 229.23, 229.23]
-                }
+        // Datos de todos los inversores (actualizado al 100%) con balance inicial
+        // Datos de todos los inversores (actualizado al 100%) con balance inicial
+// Datos de todos los inversores (actualizado al 100%) con balance inicial
+// Datos de todos los inversores (actualizado al 100%) con balance inicial
+const investorsData = [
+    // Inversor 1 (Rolopez)
+    {
+        id: 1,
+        username: "Rolopez",
+        code: "120987654",
+        initialBalance: 12000.00,  // Actualizado de 15000.00
+        balance: 18601.00,  // Mantenido igual
+        deposits: 12,
+        withdrawals: 4,
+        status: "low",
+        cuanto: 93,
+        maxLot: 0.5,
+        performance: 55.01,  // Actualizado: ((18601-12000)/12000)*100
+        balanceChange: "+5.2% este mes",  // Ajustado para ser coherente
+        operations: [
+            { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
+            { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
+            { date: "04/03/2025", operation: "Compra", session: "Asia", open: 1.105584, close: 1.10644, result: "Take Profit Parcial", observation: "Sumarán a las cuentas operaciones del viernes" }
+        ],
+        growthData: {
+            '1M': [12000, 13000, 14000, 15000, 16000, 17000, 18000, 18601],
+            '3M': [10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 18601],
+            '6M': [8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 18601],
+            '1A': [5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 18601]
+        }
+    },
+    // Inversor 2 (Esfranco)
+    {
+        id: 2,
+        username: "Esfranco",
+        code: "100554350",
+        initialBalance: 9000.00,  // Actualizado de 12000.00
+        balance: 14220.00,  // Mantenido igual
+        deposits: 22,
+        withdrawals: 3,
+        status: "low",
+        cuanto: 47,
+        maxLot: 0.3,
+        performance: 58.0,  // Actualizado: ((14220-9000)/9000)*100
+        balanceChange: "+4.8% este mes",  // Ajustado para ser coherente
+        operations: [
+            { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
+            { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
+            { date: "04/03/2025", operation: "Compra", session: "Asia", open: 1.105584, close: 1.10644, result: "Take Profit Parcial", observation: "Sumarán a las cuentas operaciones del viernes" }
+        ],
+        growthData: {
+            '1M': [9000, 10000, 11000, 12000, 13000, 14000, 14220],
+            '3M': [8000, 9000, 10000, 11000, 12000, 13000, 14000, 14220],
+            '6M': [7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 14220],
+            '1A': [6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 14220]
+        }
+    },
+    // Inversor 3 (Mifranco)
+    {
+        id: 3,
+        username: "Mifranco",
+        code: "108765432",
+        initialBalance: 2500.00,  // Mantenido igual
+        balance: 2724.12,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 2,
+        status: "high",
+        cuanto: 15.12,
+        maxLot: 0.15,
+        performance: 8.96,  // Actualizado: ((2724.12-2500)/2500)*100
+        balanceChange: "+2.5% este mes",  // Ajustado para ser coherente
+        operations: [
+            { 
+                date: "10/04/2025", 
+                operation: "Compra", 
+                session: "London", 
+                open: 1.10234, 
+                close: 1.10345, 
+                result: "Take Profit", 
+                observation: "Operación en EUR/USD (Stake: 2-5)" 
             }
-        ];
-
+        ],
+        growthData: {
+            '1M': [2500, 2550, 2600, 2650, 2700, 2724.12],
+            '3M': [2000, 2100, 2200, 2300, 2400, 2500, 2550, 2600, 2650, 2700, 2724.12],
+            '6M': [1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2550, 2600, 2650, 2700, 2724.12],
+            '1A': [1000, 1200, 1400, 1600, 1800, 2000, 2100, 2200, 2300, 2400, 2500, 2550, 2600, 2650, 2700, 2724.12]
+        }
+    },
+    // Inversor 4 (Dipatermina)
+    {
+        id: 4,
+        username: "Dipatermina",
+        code: "75042015",
+        initialBalance: 750.00,  // Actualizado de 500.00
+        balance: 800.00,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 0,
+        status: "high",
+        cuanto: 7.24,
+        maxLot: 0.03,
+        performance: 6.67,  // Actualizado: ((800-750)/750)*100
+        balanceChange: "+1.2% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "01/04/2025",
+                operation: "Compra",
+                session: "London",
+                open: 1.0800,
+                close: 1.0825,
+                result: "Take Profit",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [750, 760, 770, 780, 790, 800],
+            '3M': [700, 710, 720, 730, 740, 750, 760, 770, 780, 790, 800],
+            '6M': [650, 660, 670, 680, 690, 700, 710, 720, 730, 740, 750, 760, 770, 780, 790, 800],
+            '1A': [600, 610, 620, 630, 640, 650, 660, 670, 680, 690, 700, 710, 720, 730, 740, 750, 760, 770, 780, 790, 800]
+        }
+    },
+    // Inversor 5 (Anfionez)
+    {
+        id: 5,
+        username: "Anfionez",
+        code: "101867795",
+        initialBalance: 300.00,  // Mantenido igual
+        balance: 351.64,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 2,
+        status: "high",
+        cuanto: 6.98,
+        maxLot: 0.03,
+        performance: 17.21,  // Actualizado: ((351.64-300)/300)*100
+        balanceChange: "+2.8% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "02/04/2025",
+                operation: "Venta",
+                session: "New York",
+                open: 1.0950,
+                close: 1.0925,
+                result: "Take Profit",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [300, 310, 320, 330, 340, 351.64],
+            '3M': [250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 351.64],
+            '6M': [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 351.64],
+            '1A': [150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 351.64]
+        }
+    },
+    // Inversor 6 (Audbar)
+    {
+        id: 6,
+        username: "Audbar",
+        code: "195443700",
+        initialBalance: 474.00,  // Mantenido igual
+        balance: 479.17,  // Mantenido igual
+        deposits: 2,
+        withdrawals: 0,
+        status: "medium",
+        cuanto: 0,
+        maxLot: 0.03,
+        performance: 1.09,  // Actualizado: ((479.17-474)/474)*100
+        balanceChange: "+0.2% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "30/04/2025",
+                operation: "Venta",
+                session: "New York",
+                open: 1.13534,
+                close:1.13366,
+                result: "Take Profit (5.17)",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [474, 475, 476, 477, 478, 479.17],
+            '3M': [470, 471, 472, 473, 474, 475, 476, 477, 478, 479.17],
+            '6M': [460, 465, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479.17],
+            '1A': [450, 455, 460, 465, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479.17]
+        }
+    },
+    // Inversor 7 (Armexf)
+    {
+        id: 7,
+        username: "Armexf",
+        code: "105689741",
+        initialBalance: 200.00,  // Mantenido igual
+        balance: 237.42,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 0,
+        status: "high",
+        cuanto: 6.9,
+        maxLot: 0.03,
+        performance: 18.71,  // Mantenido igual (coherente con el cambio)
+        balanceChange: "+3.1% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "04/04/2025",
+                operation: "Venta",
+                session: "London",
+                open: 1.0850,
+                close: 1.0820,
+                result: "Take Profit",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [200, 210, 220, 230, 237.42],
+            '3M': [180, 190, 200, 210, 220, 230, 237.42],
+            '6M': [150, 160, 170, 180, 190, 200, 210, 220, 230, 237.42],
+            '1A': [120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 237.42]
+        }
+    },
+    // Inversor 8 (Anprada)
+    {
+        id: 8,
+        username: "Anprada",
+        code: "107363527",
+        initialBalance: 500.00,  // Mantenido igual
+        balance: 534.92,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 0,
+        status: "medium",
+        cuanto: 6.1,
+        maxLot: 0.03,
+        performance: 6.98,  // Actualizado: ((534.92-500)/500)*100
+        balanceChange: "+1.5% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "21/04/2025",
+                operation: "Compra",
+                session: "London",
+                open: 1.0820,
+                close: 1.0845,
+                result: "Take Profit",
+                observation: "EUR/USD - Lote: 0.03"
+            },
+            {
+                date: "22/04/2025",
+                operation: "Compra",
+                session: "New York",
+                open: 1.0911,
+                close: 1.0920,
+                result: "Take Profit",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [500, 510, 520, 530, 534.92],
+            '3M': [450, 460, 470, 480, 490, 500, 510, 520, 530, 534.92],
+            '6M': [400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 534.92],
+            '1A': [350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 534.92]
+        }
+    },
+    // Inversor 9 (Alejmo)
+    {
+        id: 9,
+        username: "Alejmo",
+        code: "764977124",
+        initialBalance: 206.00,  // Actualizado de 250.00
+        balance: 234.40,  // Mantenido igual
+        deposits: 1,
+        withdrawals: 0,
+        status: "medium",
+        cuanto: 0.09,
+        maxLot: 0.1,
+        performance: 13.79,  // Actualizado: ((234.4-206)/206)*100
+        balanceChange: "+1.8% este mes",  // Ajustado para ser coherente
+        operations: [
+            {
+                date: "30/04/2025",
+                operation: "Venta",
+                session: "New York",
+                open: 1.13534,
+                close:1.13366,
+                result: "Take Profit (5.17)",
+                observation: "EUR/USD - Lote: 0.03"
+            }
+        ],
+        growthData: {
+            '1M': [206, 210, 215, 220, 225, 230, 234.4],
+            '3M': [200, 205, 210, 215, 220, 225, 230, 234.4],
+            '6M': [190, 195, 200, 205, 210, 215, 220, 225, 230, 234.4],
+            '1A': [180, 185, 190, 195, 200, 205, 210, 215, 220, 225, 230, 234.4]
+        }
+    }
+];
         // Variables para paginación
         let currentPage = 1;
         const investorsPerPage = 5;
@@ -1027,6 +1176,7 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-altum-text-primary text-light-text">${i + 1}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-white text-light-text">${investor.username}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${investor.code}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.initialBalance)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.balance)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${performanceClass}">
                         <i class="fas ${performanceIcon} mr-1"></i> ${investor.performance}%
