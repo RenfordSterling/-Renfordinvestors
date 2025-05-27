@@ -449,24 +449,26 @@
         </div>
     </nav>
 
-    <!-- Sección Hero con altura reducida -->
-<section class="video-hero relative h-auto min-h-[70vh] md:h-[500px]">
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-        <source src="https://d21u74ttq7jqzf.cloudfront.net/video/v15_banner_video.mp4?v=1" type="video/mp4">
-    </video>
-    <div class="video-overlay absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
+    <!-- Hero Section corregida -->
+        <section class="video-hero relative h-auto min-h-[90vh] md:h-[600px]">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="https://d21u74ttq7jqzf.cloudfront.net/video/v15_banner_video.mp4?v=1" type="video/mp4">
+        </video>
+        <div class="video-overlay absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
 
-    <div class="hero-content relative z-10 flex items-center justify-center h-full py-12 md:py-0">
-                <!-- Título optimizado -->
-                <div class="text-center mb-8 space-y-2">
-                    <h1 class="hero-title text-white font-extrabold text-3xl leading-[1.15] tracking-tighter 
-                              md:text-4xl md:leading-[1.1] md:tracking-[-0.03em] 
-                              lg:text-[2.75rem]">
+        <div class="hero-content relative z-10 flex items-center justify-center h-full py-12 md:py-0">
+            <div class="w-full max-w-5xl mx-auto px-4">
+                <!-- Título profesional optimizado -->
+                <div class="text-center mb-8 space-y-1">
+                    <h1 class="hero-title text-white font-extrabold text-[2rem] leading-[1.1] tracking-tight 
+                              md:text-[2.5rem] md:leading-[1.05] md:tracking-tighter 
+                              lg:text-[3rem] xl:text-[3.5rem]">
                         <span>Convirtiendo las presiones</span>
-                        <span>inflacionarias en crecimiento</span>
-                        <span>sostenible</span>
+                        <span>inflacionarias en</span>
+                        <span>crecimiento&nbsp;sostenible</span>
                     </h1>
 
+                    <!-- Badge de desarrollo (mantenido igual) -->
                     <div class="inline-flex items-center px-4 py-2 bg-blue-500/20 border border-blue-400 rounded-full text-blue-300 text-sm font-medium animate-pulse mt-4 mx-auto max-w-max">
                         <svg class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -551,7 +553,33 @@
   </div>
 </section>
 
+<style>
+  /* Ocultar scrollbar pero mantener funcionalidad */
+  .overflow-x-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
 
+  /* Asegurar que las tarjetas no se encimen */
+  .flex-nowrap {
+    flex-wrap: nowrap;
+  }
+
+  /* Efecto hover más suave */
+  .hover\:-translate-y-1:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Ajustar altura del hero en móviles */
+  @media (max-width: 768px) {
+    .video-hero {
+      min-height: 85vh;
+    }
+  }
+</style>
 
 
 
