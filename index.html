@@ -49,6 +49,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
+        /* Estilos generales (se mantienen igual) */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -72,6 +73,21 @@
             background: #E5E7EB;
         }
 
+        /* Estilos específicos para el título */
+        .hero-title span {
+            display: inline-block;
+            padding: 0 0.15em;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title span {
+                display: block;
+                line-height: 1.3 !important;
+            }
+        }
+
+        /* Resto de estilos se mantienen igual */
         .chartjs-tooltip {
             background: rgba(30, 34, 45, 0.95) !important;
             color: #E5E7EB !important;
@@ -266,23 +282,6 @@
             color: white;
         }
         
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: 400;
-            line-height: 1.5;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-        }
-        
         .hero-button {
             background: #3B82F6;
             color: white;
@@ -392,11 +391,34 @@
         .light .filter-button.reset:hover {
             background-color: #D1D5DB;
         }
+
+        /* Nuevos estilos para scroll horizontal */
+        .overflow-x-auto {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .overflow-x-auto::-webkit-scrollbar {
+            display: none;
+        }
+
+        .flex-nowrap {
+            flex-wrap: nowrap;
+        }
+
+        .hover\:-translate-y-1:hover {
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .video-hero {
+                min-height: 85vh;
+            }
+        }
     </style>
 </head>
 <body class="dark:bg-altum-dark-bg bg-light-bg dark:text-altum-text-primary text-light-text font-sans">
     <!-- Botón de cambio de tema -->
-     <!--<div class="fixed bottom-4 right-4 z-50">
+    <div class="fixed bottom-4 right-4 z-50">
         <button id="theme-toggle" class="p-3 rounded-full bg-altum-accent text-white shadow-lg hover:bg-altum-accent-hover transition-colors flex items-center justify-center">
             <i class="fas fa-moon dark:hidden text-sm"></i>
             <i class="fas fa-sun hidden dark:block text-sm"></i>
@@ -427,18 +449,112 @@
         </div>
     </nav>
 
-    <!-- Hero Section con Video -->
-    <section class="video-hero">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+    <!-- Sección Hero Corregida -->
+    <section class="video-hero relative h-auto min-h-[90vh] md:h-[600px]">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
             <source src="https://d21u74ttq7jqzf.cloudfront.net/video/v15_banner_video.mp4?v=1" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">¡Bienvenido a Altum Capital!</h1>
-            <p class="hero-subtitle">Estamos comprometidos con una gestión responsable, transparente y segura de tus inversiones.</p>
-            <a href="#" class="hero-button">Únete a nosotros ahora</a>
+        <div class="video-overlay absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
+
+        <div class="hero-content relative z-10 flex items-center justify-center h-full py-12 md:py-0">
+            <div class="w-full max-w-5xl mx-auto px-4">
+                <!-- Título optimizado -->
+                <div class="text-center mb-8 space-y-2">
+                    <h1 class="hero-title text-white font-extrabold text-3xl leading-[1.15] tracking-tighter 
+                              md:text-4xl md:leading-[1.1] md:tracking-[-0.03em] 
+                              lg:text-[2.75rem]">
+                        <span>Convirtiendo las presiones</span>
+                        <span>inflacionarias en crecimiento</span>
+                        <span>sostenible</span>
+                    </h1>
+
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-500/20 border border-blue-400 rounded-full text-blue-300 text-sm font-medium animate-pulse mt-4 mx-auto max-w-max">
+                        <svg class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        PLATAFORMA EN DESARROLLO
+                    </div>
+                </div>
+
+      <!-- Contenedor de tarjetas con scroll horizontal en móvil -->
+      <div class="flex overflow-x-auto pb-6 mb-6 md:overflow-visible md:justify-center md:pb-0">
+        <div class="flex flex-nowrap gap-4 w-max md:w-full md:grid md:grid-cols-3 md:gap-6">
+          
+          <!-- Tarjeta 1 -->
+          <div class="flex-shrink-0 w-72 md:w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-blue-400/50 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-center mb-3">
+              <div class="bg-blue-500/10 p-2 rounded-lg mr-3">
+                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-lg">Plataforma Web</h4>
+                <div class="mt-1 flex items-center">
+                  <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
+                  <span class="text-sm text-blue-300">Ago 2025</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-white/80 text-sm">Interfaz profesional con análisis avanzado de mercados</p>
+          </div>
+
+          <!-- Tarjeta 2 -->
+          <div class="flex-shrink-0 w-72 md:w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-blue-400/50 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-center mb-3">
+              <div class="bg-blue-500/10 p-2 rounded-lg mr-3">
+                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-lg">App Móvil</h4>
+                <div class="mt-1 flex items-center">
+                  <span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>
+                  <span class="text-sm text-yellow-300">En Desarrollo</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-white/80 text-sm">Accede de forma segura con tu usuario y contraseña. Controla tus inversiones desde cualquier lugar, sin perder detalle.</p>
+          </div>
+
+          <!-- Tarjeta 3 -->
+          <div class="flex-shrink-0 w-72 md:w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-blue-400/50 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-center mb-3">
+              <div class="bg-blue-500/10 p-2 rounded-lg mr-3">
+                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-lg">Dashboard</h4>
+                <div class="mt-1 flex items-center">
+                  <span class="inline-block w-2 h-2 rounded-full bg-purple-400 mr-2"></span>
+                  <span class="text-sm text-purple-300">Fase Beta</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-white/80 text-sm">Reportes detallados y alertas personalizadas</p>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <!-- CTA Centrado -->
+      <div class="text-center px-4">
+        <a href="#" class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 text-white rounded-lg text-base font-medium transition-all duration-300 hover:shadow-lg w-full max-w-md mx-auto">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+          </svg>
+          Solicitar Acceso Anticipado
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
 
     <!-- Contenido principal -->
     <main class="container mx-auto px-4 py-8 -mt-4 relative z-10">
@@ -526,7 +642,7 @@
                         </div>
                         <div>
                             <p class="text-sm dark:text-altum-text-primary text-light-text">Nueva operación ejecutada</p>
-                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en XAUUSD - 06/05/2025</p>
+                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">Compra en XAUUSD - 25/05/2025</p>
                         </div>
                     </div>
                     
@@ -536,8 +652,8 @@
                             <i class="fas fa-money-bill-wave text-xs"></i>
                         </div>
                         <div>
-                            <p class="text-sm dark:text-altum-text-primary text-light-text">Retiro Realizado</p>
-                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+ $735 USD - 04/05/2025</p>
+                            <p class="text-sm dark:text-altum-text-primary text-light-text">Deposito Realizado</p>
+                            <p class="text-xs dark:text-altum-text-secondary text-light-text-secondary">+ $1250 USD - 20/05/2025</p>
                         </div>
                     </div>
                 </div>
@@ -832,18 +948,18 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 username: "Rolopez",
                 code: "120987654",
                 initialBalance: 12000.00,
-                balance: 18601.00,
-                deposits: 12,
-                withdrawals: 4,
-                status: "low",
+                balance: 19231.00,
+                deposits: 13,
+                withdrawals: 5,
+                status: "high",
                 cuanto: 93,
-                maxLot: 0.5,
-                performance: 55.01,
-                balanceChange: "+5.2% este mes",
+                maxLot: 0.7,
+                performance: 33.02,
+                balanceChange: "+3.2% este mes",
                 operations: [
-                    { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
-                    { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
-                    { date: "04/03/2025", operation: "Compra", session: "Asia", open: 1.105584, close: 1.10644, result: "Take Profit Parcial", observation: "Sumarán a las cuentas operaciones del viernes" }
+                    { date: "05/23/2025", operation: "Compra", session: "New York", open: 1.13285, close: 1.13552, result: "Take Profit", observation: "EUR/USD" },
+                    { date: "05/20/2025", operation: "Compra", session: "New York", open: 134.95, result: "Abierta largo plazo", observation: "Operación sumada en las cuentas con el take profit parcial" },
+                    
                 ],
                 growthData: {
                     '1M': [12000, 13000, 14000, 15000, 16000, 17000, 18000, 18601],
@@ -859,13 +975,13 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 code: "100554350",
                 initialBalance: 9000.00,
                 balance: 14220.00,
-                deposits: 22,
-                withdrawals: 3,
+                deposits: 23,
+                withdrawals: 6,
                 status: "low",
                 cuanto: 47,
                 maxLot: 0.3,
-                performance: 58.0,
-                balanceChange: "+4.8% este mes",
+                performance: 12.01,
+                balanceChange: "+12.01% este mes",
                 operations: [
                     { date: "04/14/2025", operation: "Compra", session: "New York", open: 1.13679, close: 1.14033, result: "Take Profit", observation: "Take profit en medio de un rango con bastante indecisión y incertidumbre" },
                     { date: "04/07/2025", operation: "Venta", session: "New York", open: 1.09673, close: 1.09465, result: "Take Profit", observation: "Operación sumada en las cuentas con el take profit parcial" },
@@ -890,7 +1006,7 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 status: "high",
                 cuanto: 15.12,
                 maxLot: 0.15,
-                performance: 8.96,
+                performance: 9.32,
                 balanceChange: "+2.5% este mes",
                 operations: [
                     { 
@@ -954,8 +1070,8 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 status: "high",
                 cuanto: 6.98,
                 maxLot: 0.03,
-                performance: 17.21,
-                balanceChange: "+2.8% este mes",
+                performance: 4.11,
+                balanceChange: "+4.11% este mes",
                 operations: [
                     {
                         date: "02/04/2025",
@@ -980,22 +1096,22 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 username: "Audbar",
                 code: "195443700",
                 initialBalance: 926.40,
-                balance: 978.26,
+                balance: 985.11,
                 deposits: 3,
                 withdrawals: 0,
-                status: "medium",
+                status: "high",
                 cuanto: 0,
                 maxLot: 0.03,
-                performance: 5.66,
-                balanceChange: "+5.66% este mes",
+                performance: 5.81,
+                balanceChange: "+5.80% este mes",
                 operations: [
                     {
-                        date: "19/05/2025",
+                        date: "05/23/2025",
                         operation: "Compra",
                         session: "New York",
-                        open: 1.12534,
-                        close:1.13366,
-                        result: "Take Profit (2.14)",
+                        open: 1.13285,
+                        close:1.13552,
+                        result: "Take Profit (7.20)",
                         observation: "EUR/USD - Lote: 0.03"
                     },
                     {
@@ -1053,32 +1169,32 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 username: "Anprada",
                 code: "107363527",
                 initialBalance: 500.00,
-                balance: 540.12,
+                balance: 534.22,
                 deposits: 1,
-                withdrawals: 0,
-                status: "medium",
+                withdrawals: 1,
+                status: "high",
                 cuanto: 6.1,
                 maxLot: 0.03,
-                performance: 8.01,
-                balanceChange: "+8.01% este mes",
+                performance: 6.84,
+                balanceChange: "+6.84% este mes",
                 operations: [
                     {
-                        date: "06/05/2025",
-                        operation: "Venta",
+                        date: "25/05/2025",
+                        operation: "Compra",
                         session: "New York",
-                        open: 1.13388,
-                        close: 1.13293,
-                        result: "Take Profit (8.90)",
+                        open: 1.13285,
+                        close: 1.13552,
+                        result: "Take Profit (9.72)",
                         observation: "EUR/USD - Lote: 0.03"
                     },
                     {
-                        date: "05/05/2025",
-                        operation: "Compra",
-                        session: "New York",
-                        open: 1.1374,
-                        close: 1.13421,
-                        result: "Take Profit (2.15)",
-                        observation: "EUR/USD - Lote: 0.01"
+                        date: "19/05/2025",
+                        operation: "WITHDRAWAL",
+                        session: "BALANCE",
+                        open: 540.12,
+                        close: 524.05,
+                        result: " ",
+                        observation: "BALANCE 524.05"
                     }
                 ],
                 growthData: {
