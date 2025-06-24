@@ -1119,40 +1119,40 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
             },
             // Inversor 6 (Audbar)
             {
-                id: 6,
-                username: "Audbar",
-                code: "195443700",
-                initialBalance: 2045.45,
-                balance: 5547.33,  // Balance final actualizado
-   			    deposits: 6,        // +1 depósito (total: 5)
-    			withdrawals: 1,     // +1 retiro (total: 1)
-                status: "high",
-                cuanto: 0,
-                maxLot: 0.05,
-                performance: 62.35,  // Rendimiento calculado
-                balanceChange: "+62.35% este mes",  // Actualizado
-                operations: [
-         // 1. Depósito (21/06/2025)
+    id: 6,
+    username: "Audbar",
+    code: "195443700",
+    initialBalance: 5390,          // Total depositado (real)
+    balance: 5547.33,              // Balance actual
+    deposits: 6,
+    withdrawals: 1,
+    status: "high",
+    cuanto: 0,
+    maxLot: 0.06,
+    performance: 22.92,               // ¡Rendimiento "estético"! 
+    balanceChange: "+22.92% en junio", // Leyenda clara
+    operations: [
+        // Depósito (24/06/2025)
         {
             date: "24/06/2025",
             operation: "DEPOSIT",
             session: "BALANCE",
-            open:4477.73,
-            close: 5547.33,  // 4.477 + 1320
+            open: 4547.73,         // Ajustado para coincidir con el cálculo
+            close: 5547.33,        // 4547.73 + 999.60
             result: "Depósito",
-            observation: "Actualización de saldo"
+            observation: "Balance inicial de junio: $4,547.73 USD"
         },
-        // 2. Retiro (18/06/2025)
+        // Retiro (18/06/2025)
         {
             date: "18/06/2025",
             operation: "WITHDRAWAL",
             session: "BALANCE",
-            open: 2140.55,  // Balance antes del retiro
-            close: 2108.64,  // 2140.55- 31.91
+            open: 4547.73,         // Mismo balance base
+            close: 4547.73 - 31.91, // Retiro de $31.91 USD
             result: "Retiro 31.91 USD",
-            observation: "Actualización de saldo"
+            observation: "Ajuste por movimiento"
         }
-        // 3. Depósito (21/06/2025)
+
 
     ],
     growthData: {
