@@ -1123,8 +1123,8 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 username: "Audbar",
                 code: "195443700",
                 initialBalance: 2045.45,
-                balance: 4477.73,  // Balance final actualizado
-   			    deposits: 5,        // +1 depósito (total: 5)
+                balance: 5697.33,  // Balance final actualizado
+   			    deposits: 6,        // +1 depósito (total: 5)
     			withdrawals: 1,     // +1 retiro (total: 1)
                 status: "high",
                 cuanto: 0,
@@ -1132,15 +1132,15 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 performance: 62.35,  // Rendimiento calculado
                 balanceChange: "+62.35% este mes",  // Actualizado
                 operations: [
-        // 1. Ganancia (09/06/2025)
+         // 1. Depósito (21/06/2025)
         {
-            date: "09/06/2025",
-            operation: "Compra",
-            session: "New York",
-            open: 1.1800,
-            close: 1.1830,
-            result: "Take Profit (+23 USD)",
-            observation: "EUR/USD - Lote: 0.05"
+            date: "24/06/2025",
+            operation: "DEPOSIT",
+            session: "BALANCE",
+            open:4477.73,
+            close: 5697.33,  // 4.477 + 1320
+            result: "Depósito",
+            observation: "Actualización de saldo"
         },
         // 2. Retiro (18/06/2025)
         {
@@ -1151,17 +1151,9 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
             close: 2108.64,  // 2140.55- 31.91
             result: "Retiro 31.91 USD",
             observation: "Actualización de saldo"
-        },
-        // 3. Depósito (21/06/2025)
-        {
-            date: "21/06/2025",
-            operation: "DEPOSIT",
-            session: "BALANCE",
-            open: 2140.55,
-            close: 4477.73,  // 2140.55 + 1189
-            result: "Depósito de 1,189 USD",
-            observation: "Actualización de saldo"
         }
+        // 3. Depósito (21/06/2025)
+
     ],
     growthData: {
         '1M': [474, 475, 476, 477, 478, 479.17, 4477.73],  // Añadido balance final
