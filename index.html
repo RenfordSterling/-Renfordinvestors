@@ -627,17 +627,18 @@
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y dark:divide-altum-border divide-light-border">
                     <thead class="dark:bg-altum-border bg-light-border bg-opacity-50">
-                        <tr>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">#</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Inversor</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Código</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Actual</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Rendimiento (%)</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Inicial</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Estado</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
+    <tr>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">#</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Inversor</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Actual</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Rendimiento (%)</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Balance Inicial</th>
+        <!-- Código movido aquí -->
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Código</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Estado</th>
+        <th scope="col" class="px-4 py-3 text-left text-xs font-medium dark:text-altum-text-secondary text-light-text-secondary uppercase tracking-wider">Acciones</th>
+    </tr>
+</thead>
                     <tbody class="dark:bg-altum-card-bg bg-light-card divide-y dark:divide-altum-border divide-light-border" id="investors-table">
                         <!-- Inversores se cargarán dinámicamente -->
                     </tbody>
@@ -1122,15 +1123,16 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
     id: 6,
     username: "Audbar",
     code: "195443700",
-    initialBalance: 5390,          // Total depositado (real)
-    balance: 5547.33,              // Balance actual
+    initialBalance: 5390,          // Total depositado (se mantiene igual)
+    balance: 5547.33 + 23.00,      // Nuevo balance: 5570.33
     deposits: 6,
     withdrawals: 1,
     status: "high",
     cuanto: 0,
     maxLot: 0.06,
-    performance: 22.92,               // ¡Rendimiento "estético"! 
-    balanceChange: "+22.92% en junio", // Leyenda clara
+    // Rendimiento RECALCULADO: ((NuevoBalance - initialBalance) / initialBalance * 100)
+    performance: ((5570.33 - 5390) / 5390 * 100).toFixed(2),  // ≈ 3.35%
+    balanceChange: "+3.35% en junio",  // Actualizado
     operations: [
         // Depósito (24/06/2025)
         {
@@ -1336,22 +1338,24 @@ India lanza un ataque con misiles contra Pakistán y escala las tensiones entre 
                 const statusClass = `status-${investor.status}`;
                 
                 row.innerHTML = `
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium dark:text-altum-text-primary text-light-text">${i + 1}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium dark:text-white text-light-text">${investor.username}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${investor.code}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.balance)}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium ${performanceClass}">
-                        <i class="fas ${performanceIcon} mr-1"></i> ${investor.performance}%
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.initialBalance)}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm">
-                        <span class="status-badge ${statusClass}">${getStatusText(investor.status)}</span>
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">
-                        <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="${investor.id}">
-                            <i class="fas fa-eye mr-1 text-xs"></i> Ver
-                        </button>
-                    </td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium dark:text-altum-text-primary text-light-text">${i + 1}</td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium dark:text-white text-light-text">${investor.username}</td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.balance)}</td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium ${performanceClass}">
+        <i class="fas ${performanceIcon} mr-1"></i> ${investor.performance}%
+    </td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm font-semibold dark:text-white text-light-text">${formatUSD(investor.initialBalance)}</td>
+    <!-- Código después de Balance Inicial -->
+    <td class="px-4 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">${investor.code}</td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm">
+        <span class="status-badge ${statusClass}">${getStatusText(investor.status)}</span>
+    </td>
+    <td class="px-4 py-4 whitespace-nowrap text-sm dark:text-altum-text-secondary text-light-text-secondary">
+        <button class="text-altum-accent hover:text-altum-accent-hover view-detail transition-colors font-medium" data-id="${investor.id}">
+            <i class="fas fa-eye mr-1 text-xs"></i> Ver
+        </button>
+    </td>
+
                 `;
                 tableBody.appendChild(row);
             }
